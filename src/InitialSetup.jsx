@@ -2,8 +2,6 @@
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Html, useGLTF } from '@react-three/drei';
 import { Suspense } from 'react';
-import { useGLTF } from '@react-three/drei';
-
 
 // Load and display the .glb 3D model
 function ComputerModel({ onClick }) {
