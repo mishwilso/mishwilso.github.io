@@ -1,15 +1,20 @@
 {
   "files": {
-    "main.css": "/static/css/main.e6c13ad2.css",
-    "main.js": "/static/js/main.87cab5d7.js",
-    "static/js/453.cba40d9d.chunk.js": "/static/js/453.cba40d9d.chunk.js",
+    "main.css": "/static/css/main.fef5492d.css",
+    "main.js": "/static/js/main.cfeddc81.js",
+    "static/js/453.e27af7ec.chunk.js": "/static/js/453.e27af7ec.chunk.js",
+    "static/media/workingAtComputer.jpg": "/static/media/workingAtComputer.f964cf4109fc718e99c3.jpg",
+    "static/media/currentme.jpg": "/static/media/currentme.40eaa648bcf71102964b.jpg",
+    "static/media/ee.jpg": "/static/media/ee.7656e3a317181c8a39b1.jpg",
+    "static/media/forHireGif.gif": "/static/media/forHireGif.a891bf17753104995062.gif",
+    "static/media/neverGiveUp.jpg": "/static/media/neverGiveUp.c9ee4e48677de77065a9.jpg",
     "index.html": "/index.html",
-    "main.e6c13ad2.css.map": "/static/css/main.e6c13ad2.css.map",
-    "main.87cab5d7.js.map": "/static/js/main.87cab5d7.js.map",
-    "453.cba40d9d.chunk.js.map": "/static/js/453.cba40d9d.chunk.js.map"
+    "main.fef5492d.css.map": "/static/css/main.fef5492d.css.map",
+    "main.cfeddc81.js.map": "/static/js/main.cfeddc81.js.map",
+    "453.e27af7ec.chunk.js.map": "/static/js/453.e27af7ec.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.e6c13ad2.css",
-    "static/js/main.87cab5d7.js"
+    "static/css/main.fef5492d.css",
+    "static/js/main.cfeddc81.js"
   ]
 }
