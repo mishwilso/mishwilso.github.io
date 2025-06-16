@@ -1,0 +1,6 @@
+ // GitHub
+ npm run deploy
+ npm run build
+
+// Live
+ npm start

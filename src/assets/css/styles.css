@@ -1,0 +1,17 @@
+/* styles.css */
+.firstname, .lastname {
+  font-size: clamp(36px, 8vw, 72px);
+  font-family: Pixelout;
+  margin-bottom: 16px;
+  line-height: 0;
+}
+
+.subhead {
+  font-size: clamp(16px, 2vw, 24px);
+  font-family: MillenniumBold;
+  margin-top: 20px;
+}
+
+.link {
+  font-size: clamp(14px, 2vw, 18px);
+}

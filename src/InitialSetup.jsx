@@ -14,7 +14,7 @@ import ControlledCamera from './ControlledCamera';
 // Load and display the .glb 3D model
 function ComputerModel({onClick}) {
   // useGLTF loads the model once and caches it
-  const gltf = useGLTF('/models/low_poly_computer_desk.glb');
+  const gltf = useGLTF('/models/Mish_Office.glb');
 
     // Traverse the model and enable shadow casting for all mesh objects
   gltf.scene.traverse((obj) => {
