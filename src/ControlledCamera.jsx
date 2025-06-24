@@ -1,81 +1,24 @@
-// CameraController.jsx
+// MainCameraController.tsx
 import { useThree, useFrame } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
-import { useRef, useState } from 'react';
 import * as THREE from 'three';
 
-export default function CameraController({ focus }) {
-  const controlsRef = useRef();
+export default function MainCameraController() {
   const { camera, mouse } = useThree();
-  const direction = useRef(1);
-  const minAzimuthAngle = useRef(-Math.PI / 4);
-  const maxAzimuthAngle = useRef(-Math.PI / 4);
-  const angle = useRef(0);
-  const targetZoomPos = [25, -10, 100]; // adjust to focus on your desk
-  const [zooming, setZooming] = useState(false);
-  const maxOffset = {
-  x: 2, // max left/right from center
-  y: 2  // max up/down from center
-};
+
+  // Base camera position
+  const basePosition = new THREE.Vector3(0, 0, 2.5);
+  const maxOffset = { x: 0.75, y: 0.5 }; // how far camera should drift
 
   useFrame(() => {
-    const controls = controlsRef.current;
+    // Calculate offset based on mouse movement
+    const offsetX = THREE.MathUtils.clamp(mouse.x * maxOffset.x, -maxOffset.x, maxOffset.x);
+    const offsetY = THREE.MathUtils.clamp(mouse.y * maxOffset.y, -maxOffset.y, maxOffset.y);
+    const target = basePosition.clone().add(new THREE.Vector3(offsetX, offsetY, 0));
 
-    if (!focus) {
-      // Oscillate autoRotateSpeed back and forth
-    //   angle.current += 0.0025 * direction.current;
-    //   if (angle.current > 0.25 || angle.current < -0.25) direction.current *= -1;
-
-      controls.autoRotate = true;
-      const angle = controls.getAzimuthalAngle(); // current horizontal angle
-      const min = minAzimuthAngle ?? -Infinity;
-      const max = maxAzimuthAngle ?? Infinity;
-
-      if (angle <= min || angle > max || angle == max) {
-        direction.current *= -1;
-      }
-
-      controls.autoRotateSpeed = 0.5 * direction.current;
-    } else {
-      // Begin zooming in
-      controls.autoRotate = false;
-       const [tx, ty, tz] = targetZoomPos;
-
-        // Smooth zoom in
-        camera.position.lerp({ x: tx, y: ty, z: tz }, 0.05);
-
-        // Parallax effect, clamped within allowed offset area
-        const offsetX = THREE.MathUtils.clamp(mouse.x * maxOffset.x, -maxOffset.x, maxOffset.x);
-        const offsetY = THREE.MathUtils.clamp(mouse.y * maxOffset.y, -maxOffset.y, maxOffset.y);
-
-        camera.position.x += offsetX;
-        camera.position.y += offsetY;
-
-        if (controls) {
-        controls.target.set(0, 35, 0);  // Look slightly above desk
-        controls.update();
-        }
-
-        controls.minDistance = 10;
-
-        
-    }
-
-    controls.update();
+    // Smoothly move camera toward target
+    camera.position.lerp(target, 0.005);
+    camera.lookAt(0, 0, 0); // Always look at center
   });
 
-  return (
-    <OrbitControls
-      ref={controlsRef}
-      enableZoom={true}
-      enablePan={false}
-      enableRotate={!focus}
-      minPolarAngle={Math.PI / 3}
-      maxPolarAngle={Math.PI / 2.5}
-      minAzimuthAngle={-Math.PI / 4}
-      maxAzimuthAngle={Math.PI / 4}
-      minDistance={150}
-      maxDistance={300}
-    />
-  );
+  return null;
 }

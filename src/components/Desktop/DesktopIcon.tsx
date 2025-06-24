@@ -1,6 +1,8 @@
-import '../../assets/css/98.css'
-import '../../assets/css/index.css';
-import '../../assets/css/prog.css';
+import '../../assets/css/base.css';
+import '../../assets/css/components.css';
+import '../../assets/css/layout.css';
+import '../../assets/css/themes.css';
+import '../../assets/css/responsive.css';
 
 import React, { useRef, useState } from 'react';
 
@@ -9,20 +11,22 @@ interface DesktopIconProps {
   label: string;
   launchId: string;
   onLaunch: (id: string) => void;
+  x: number;
+  y: number;
 }
 
-const DesktopIcon: React.FC<DesktopIconProps> = ({ icon, label, launchId, onLaunch }) => {
+const DesktopIcon: React.FC<DesktopIconProps> = ({ icon, label, launchId, x, y, onLaunch,  }) => {
   const iconRef = useRef<HTMLDivElement>(null);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [position, setPosition] = useState({ x: x, y: y });
   const [dragging, setDragging] = useState(false);
   const offset = useRef({ x: 0, y: 0 });
 
-    React.useEffect(() => {
-    const saved = localStorage.getItem(`desktop-icon-${label}`);
-    if (saved) {
-      setPosition(JSON.parse(saved));
-    }
-  }, []);
+  //   React.useEffect(() => {
+  //   const saved = localStorage.getItem(`desktop-icon-${label}`);
+  //   if (saved) {
+  //     setPosition(JSON.parse(saved));
+  //   }
+  // }, []);
   
   const onMouseDown = (e: React.MouseEvent) => {
     setDragging(true);
@@ -43,7 +47,7 @@ const DesktopIcon: React.FC<DesktopIconProps> = ({ icon, label, launchId, onLaun
 
   const onMouseUp = () => {
     setDragging(false);
-    localStorage.setItem(`desktop-icon-${label}`, JSON.stringify(position));
+    // localStorage.setItem(`desktop-icon-${label}`, JSON.stringify(position));
 
   };
 

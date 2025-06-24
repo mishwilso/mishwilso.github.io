@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import '../../assets/css/98.css'
-import '../../assets/css/index.css';
-import '../../assets/css/prog.css';
+import '../../assets/css/base.css';
+import '../../assets/css/components.css';
+import '../../assets/css/layout.css';
+import '../../assets/css/themes.css';
+import '../../assets/css/responsive.css';
 
 interface TaskbarProps {
   windows: {
@@ -13,6 +15,7 @@ interface TaskbarProps {
   onFocusWindow: (id: string) => void;
   onToggleMinimize: (id: string) => void;
   onLaunch: (launchId: string) => void;
+  onStartClick: () => void;
 }
 
 const Taskbar: React.FC<TaskbarProps> = ({
@@ -20,6 +23,7 @@ const Taskbar: React.FC<TaskbarProps> = ({
   onFocusWindow,
   onToggleMinimize,
   onLaunch,
+  onStartClick,
 }) => {
   const [time, setTime] = useState('');
 
@@ -41,8 +45,8 @@ const Taskbar: React.FC<TaskbarProps> = ({
   return (
     <div className="task-bar">
       {/* Start button */}
-      <button id="start-btn" onClick={() => onLaunch('start')}>
-        <img src="/img/taskbar/Start.png" alt="Start" />
+      <button id="start-btn" onClick={onStartClick}>
+        <img src="/img/taskbar/Start.png" alt="Start" width="100%" height="100%" />
       </button>
 
       <div className="task-bar__divider" />
@@ -85,7 +89,7 @@ const Taskbar: React.FC<TaskbarProps> = ({
               <img
                 src={win.icon}
                 alt=""
-                style={{ width: 16, height: 16, marginRight: 4 }}
+                style={{ marginRight: 4 }}
               />
             )}
             {win.title}

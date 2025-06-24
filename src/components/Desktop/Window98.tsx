@@ -1,6 +1,8 @@
-import '../../assets/css/98.css'
-import '../../assets/css/index.css';
-import '../../assets/css/prog.css';
+import '../../assets/css/base.css';
+import '../../assets/css/components.css';
+import '../../assets/css/layout.css';
+import '../../assets/css/themes.css';
+import '../../assets/css/responsive.css';
 
 import React, { useEffect, useRef, useState } from 'react';
 
@@ -80,11 +82,21 @@ const Window98: React.FC<WindowProps> = (props) => {
   };
 
   const handleMouseMove = (e: MouseEvent) => {
-    if (dragging) {
-      setPosition({
-        x: e.clientX - offset.current.x,
-        y: e.clientY - offset.current.y,
-      });
+    if (dragging && windowRef.current) {
+      const windowEl = windowRef.current;
+      const windowWidth = windowEl.offsetWidth;
+      const windowHeight = windowEl.offsetHeight;
+
+      const screenWidth = window.innerWidth;
+      const screenHeight = window.innerHeight;
+
+      const newX = e.clientX - offset.current.x;
+      const newY = e.clientY - offset.current.y;
+
+      const clampedX = Math.max(0, Math.min(screenWidth - windowWidth, newX));
+      const clampedY = Math.max(0, Math.min(screenHeight - windowHeight, newY)); // 50 = height of search bar
+
+      setPosition({ x: clampedX, y: clampedY });
     }
     if (resizing) {
       const dx = e.clientX - resizeStart.current.x;
@@ -120,8 +132,8 @@ const Window98: React.FC<WindowProps> = (props) => {
         ...styles.window,
         top: props.maximized ? 0 : position.y,
         left: props.maximized ? 0 : position.x,
-        width: props.maximized ? 'calc(100vw - 11px)' : size.width,
-        height: props.maximized ? 'calc(100vh - 39px)' : size.height,
+        width: props.maximized ? 'calc(100vw - 0px)' : size.width,
+        height: props.maximized ? 'calc(100vh - 55px)' : size.height,
         zIndex: props.zIndex,
       }}
       onMouseDown={props.onClick}
@@ -190,7 +202,7 @@ const styles: StyleSheetCSS = {
     overflow: 'hidden',
   },
   titleBar: {
-    background: 'linear-gradient(to right, navy, #0000CD)',
+    background: 'linear-gradient(to right, rgb(55, 97, 157),rgb(149, 187, 240))',
     color: 'white',
     height: '20px',
     display: 'flex',

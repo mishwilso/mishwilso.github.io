@@ -1,0 +1,595 @@
+/* From 98.css */
+@font-face {
+    font-family: "Pixelated MS Sans Serif";
+    src: url(../fonts/ms_sans_serif_bold.woff2) format("woff");
+    src: url(../fonts/ms_sans_serif_bold.woff2) format("woff2");
+    font-weight: 700;
+    font-style: normal;}
+
+/* From 98.css */
+@font-face {
+    font-family: "Pixelout";
+    src: url(../fonts/Pixelout.ttf) format("truetype");
+    font-weight: 700;
+    font-style: normal;}
+
+/* From 98.css */
+@font-face {
+    font-family: Millennium;
+    src: url(../fonts/Millennium.ttf);}
+
+/* From 98.css */
+@font-face {
+    font-family: MillenniumBold;
+    src: url(../fonts/Millennium-Bold.ttf);}
+
+/* From 98.css */
+@font-face {
+    font-family: Terminal;
+    src: url(../fonts/Terminal.ttf);}
+
+/* From 98.css */
+h1 {
+    font-size: 5rem;}
+
+/* From 98.css */
+h2 {
+    font-size: 2.5rem;}
+
+/* From 98.css */
+h3 {
+    font-size: 2rem;}
+
+/* From 98.css */
+h4 {
+    font-size: 1.5rem;}
+
+/* From 98.css */
+u {
+    text-decoration: none;
+    border-bottom: 0.5px solid #222;}
+
+/* From 98.css */
+.vertical-bar {
+    width: 4px;
+    height: 20px;}
+
+/* From 98.css */
+:disabled,
+:disabled + label {
+    color: grey;
+    text-shadow: 1px 1px 0 #fff;}
+
+/* From 98.css */
+.title-bar-text {
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0;
+    margin-right: 24px;}
+
+/* From 98.css */
+.title-bar-controls {
+    display: flex;}
+
+/* From 98.css */
+fieldset {
+    border: none;
+    box-shadow: inset -1px -1px #fff, inset 1px 1px #0a0a0a, inset -2px -2px grey, inset 2px 2px #dfdfdf;
+    padding: 10px;
+    padding-block-start: 8px;
+    margin: 0;}
+
+/* From 98.css */
+.field-row {
+    display: flex;
+    align-items: center;}
+
+/* From 98.css */
+[class^=field-row] + [class^=field-row] {
+    margin-top: 6px;}
+
+/* From 98.css */
+.field-row-stacked {
+    display: flex;
+    flex-direction: column;}
+
+/* From 98.css */
+label {
+    display: inline-flex;
+    align-items: center;}
+
+/* From 98.css */
+input[type=checkbox] + label,
+input[type=radio] + label {
+    line-height: 13px;}
+
+/* From 98.css */
+input[type=radio] + label {
+    position: relative;
+    margin-left: 18px;}
+
+/* From 98.css */
+input[type=checkbox]:focus + label,
+input[type=radio]:focus + label {
+    outline: 1px dotted #000;}
+
+/* From 98.css */
+input[type=checkbox] + label {
+    position: relative;
+    margin-left: 19px;}
+
+/* From 98.css */
+input[type=email],
+input[type=password],
+input[type=text] {
+    border: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0;}
+
+/* From 98.css */
+select,
+textarea {
+    border: none;}
+
+/* From 98.css */
+input[type=email],
+input[type=password],
+input[type=text],
+select {
+    height: 21px;}
+
+/* From 98.css */
+input[type=email],
+input[type=password],
+input[type=text] {
+    line-height: 2;}
+
+/* From 98.css */
+input[type=email]:focus,
+input[type=password]:focus,
+input[type=text]:focus,
+select:focus,
+textarea:focus {
+    outline: none;}
+
+/* From 98.css */
+input[type=range]:focus {
+    outline: none;}
+
+/* From 98.css */
+.is-vertical {
+    display: inline-block;
+    width: 4px;
+    height: 150px;
+    transform: translateY(50%);}
+
+/* From 98.css */
+.is-vertical > input[type=range] {
+    width: 150px;
+    height: 4px;
+    margin: 0 16px 0 10px;
+    transform-origin: left;
+    transform: rotate(270deg) translateX(calc(-50% + 8px));}
+
+/* From 98.css */
+.is-vertical > input[type=range]::-webkit-slider-runnable-track {
+    border-left: 1px solid grey;
+    border-right: 0;
+    border-bottom: 1px solid grey;
+    box-shadow: -1px 0 0 #fff, -1px 1px 0 #fff, 0 1px 0 #fff, 1px 0 0 #a9a9a9, 1px -1px 0 #a9a9a9, 0 -1px 0 #a9a9a9, 1px 1px 0 #fff, -1px -1px #a9a9a9;}
+
+/* From 98.css */
+.is-vertical > input[type=range]::-moz-range-track {
+    border-left: 1px solid grey;
+    border-right: 0;
+    border-bottom: 1px solid grey;
+    box-shadow: -1px 0 0 #fff, -1px 1px 0 #fff, 0 1px 0 #fff, 1px 0 0 #a9a9a9, 1px -1px 0 #a9a9a9, 0 -1px 0 #a9a9a9, 1px 1px 0 #fff, -1px -1px #a9a9a9;}
+
+/* From 98.css */
+.is-vertical > input[type=range]::-webkit-slider-thumb {
+    transform: translateY(-8px) scaleX(-1);}
+
+/* From 98.css */
+.is-vertical > input[type=range].has-box-indicator::-webkit-slider-thumb {
+    transform: translateY(-10px) scaleX(-1);}
+
+/* From 98.css */
+.is-vertical > input[type=range]::-moz-range-thumb {
+    transform: translateY(2px) scaleX(-1);}
+
+/* From 98.css */
+.is-vertical > input[type=range].has-box-indicator::-moz-range-thumb {
+    transform: translateY(0) scaleX(-1);}
+
+/* From 98.css */
+a {
+    color: #00f;}
+
+/* From 98.css */
+a:focus {
+    outline: 1px dotted #00f;}
+
+/* From 98.css */
+ul.tree-view li {
+    list-style-type: none;}
+
+/* From 98.css */
+ul.tree-view a {
+    text-decoration: none;
+    color: #000;}
+
+/* From 98.css */
+ul.tree-view li,
+ul.tree-view ul {
+    margin-top: 3px;}
+
+/* From 98.css */
+ul.tree-view ul {
+    margin-left: 16px;
+    padding-left: 16px;
+    border-left: 1px dotted grey;}
+
+/* From 98.css */
+ul.tree-view ul > li {
+    position: relative;}
+
+/* From 98.css */
+ul.tree-view ul > li:before {
+    content: "";
+    display: block;
+    position: absolute;
+    left: -16px;
+    top: 6px;
+    width: 12px;
+    border-bottom: 1px dotted grey;}
+
+/* From 98.css */
+ul.tree-view details {
+    margin-top: 0;}
+
+/* From 98.css */
+ul.tree-view details[open] summary {
+    margin-bottom: 0;}
+
+/* From 98.css */
+ul.tree-view ul details > summary:before {
+    margin-left: -22px;
+    position: relative;
+    z-index: 1;}
+
+/* From 98.css */
+ul.tree-view details[open] > summary:before {
+    content: "-";}
+
+/* From 98.css */
+summary:focus {
+    outline: 1px dotted #000;}
+
+/* From index.css */
+noscript {
+    color: red;
+    font-weight: bold;}
+
+/* From index.css */
+.typography h1 {
+    font-size: 2rem;
+    margin: 0;
+    font-family: "Arial", -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif !important;}
+
+/* From index.css */
+.typography h2 {
+    font-size: 1.75rem;
+    margin: 0;}
+
+/* From index.css */
+.typography h4 {
+    font-size: 1.25rem;
+    margin: 0;}
+
+/* From index.css */
+.typography p {
+    line-height: 1.5;}
+
+/* From index.css */
+.typography li {
+    margin-bottom: 3px;}
+
+/* From index.css */
+.typography {
+    max-width: min(25rem, 75vw);}
+
+/* From index.css */
+.desktop {
+    height: 100%;
+    padding: 10px;
+
+    position: absolute;
+    display: grid;
+    grid-template-rows: repeat(auto-fill, 78px);
+    grid-template-columns: repeat(auto-fill, 64px);
+    grid-auto-flow: column;
+
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+
+    color: white;}
+
+/* From index.css */
+@media (max-width: 768px) {
+    .task-bar__quick, .task-bar__tray {
+        display: flex !important;
+    }
+}
+
+/* From index.css */
+.task-bar__divider {
+    box-shadow: inset -1px -1px #0a0a0a,inset 1px 1px #dfdfdf,inset -2px -2px grey,inset 2px 2px #fff;
+    height: 22px;
+    width: 2px;
+    margin: 0px 2px;}
+
+/* From index.css */
+.task-bar__quick {
+    margin: 0 2px;
+    cursor: pointer;
+    padding: 2px;
+    min-width: 1%;
+    min-height: 50%;}
+
+/* From index.css */
+.task-bar__quick:hover {
+    box-shadow: -1px -1px #dfdfdf, 1px 1px gray;}
+
+/* From index.css */
+.task-bar__quick:active {
+    box-shadow: 1px 1px #dfdfdf, -1px -1px gray;}
+
+/* From index.css */
+.task-bar__main {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;}
+
+/* From index.css */
+.task-bar__launch > img {
+    margin-right: 4px;}
+
+/* From index.css */
+.layout__column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;}
+
+/* From index.css */
+.layout--justify-end {
+    justify-content: flex-end;}
+
+/* From index.css */
+.util__flex-grow { flex-grow: 1;}
+
+/* From index.css */
+.util__nomargin {
+    margin: 0;}
+
+/* From index.css */
+.util__margin--horizontal {
+    margin: 0 1rem;}
+
+/* From index.css */
+.svg__defsonly {
+    height: 0px;}
+
+/* From index.css */
+#start-btn {
+    min-width: 90px !important;
+    min-height: 35px !important;
+    padding: 2 2px;
+    cursor: pointer;}
+
+/* From index.css */
+#start-btn > img {
+    margin-top: 1px;}
+
+/* From index.css */
+#start-btn:active > img {
+    transform: translate(1px, 1px);}
+
+/* From index.css */
+#start-btn.start-btn--active {
+    transform: translate(1px, 1px);
+    box-shadow: var(--inset__inverse);}
+
+/* From index.css */
+#start-btn.start-btn--active > img {
+    border: 1px dotted white;
+    margin: -1px;}
+
+/* From index.css */
+#dummy { height: 0; width: 0; opacity: 0;}
+
+/* From index.css */
+#time {
+    margin: 0 4px;}
+
+/* From prog.css */
+.resume__iframe {
+    flex-grow: 1;}
+
+/* From prog.css */
+.explorer__desktop {
+    display: grid;
+    grid-template-rows: repeat(auto-fill, 78px);
+    grid-template-columns: repeat(auto-fill, 64px);
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+
+    color: black;
+
+    user-select: none;
+    -webkit-user-select: none;
+
+    flex-grow: 1;
+
+    padding: 5px;
+    overflow-y: auto;
+    overflow-x: hidden;}
+
+/* From prog.css */
+.polaroid > img{
+  max-width: 300px;
+  height: auto;}
+
+/* From prog.css */
+.caption {
+  font-family: 'MillenniumBold';
+  font-size: 1rem;
+  text-align: center;
+  line-height: 2em;}
+
+/* From prog.css */
+.subcaption {
+  font-family: 'MillenniumBold';
+  font-size: 0.75 rem;}
+
+/* From prog.css */
+.item .polaroid:before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  transition: all 0.35s;}
+
+/* From prog.css */
+.item:nth-of-type(4n+1) {
+  transform: scale(0.8, 0.8) rotate(5deg);
+  transition: all 0.35s;}
+
+/* From prog.css */
+.item:nth-of-type(4n+1) .polaroid:before {
+  transform: rotate(6deg);
+  height: 20%;
+  width: 47%;
+  bottom: 30px;
+  right: 12px;
+  box-shadow: 0 2.1rem 2rem rgba(103,57,31,0.4);}
+
+/* From prog.css */
+.item:nth-of-type(4n+2) {
+  transform: scale(0.8, 0.8) rotate(-5deg);
+  transition: all 0.35s;}
+
+/* From prog.css */
+.item:nth-of-type(4n+2) .polaroid:before {
+  transform: rotate(-6deg);
+  height: 20%;
+  width: 47%;
+  bottom: 30px;
+  left: 12px;
+  box-shadow: 0 2.1rem 2rem rgba(0,0,0,0.4);}
+
+/* From prog.css */
+.item:nth-of-type(4n+4) {
+  transform: scale(0.8, 0.8) rotate(3deg);
+  transition: all 0.35s;}
+
+/* From prog.css */
+.item:nth-of-type(4n+4) .polaroid:before {
+  transform: rotate(4deg);
+  height: 20%;
+  width: 47%;
+  bottom: 30px;
+  right: 12px;
+  box-shadow: 0 2.1rem 2rem rgba(0,0,0,0.3);}
+
+/* From prog.css */
+.item:nth-of-type(4n+3) {
+  transform: scale(0.8, 0.8) rotate(-3deg);
+  transition: all 0.35s;}
+
+/* From prog.css */
+.item:nth-of-type(4n+3) .polaroid:before {
+  transform: rotate(-4deg);
+  height: 20%;
+  width: 47%;
+  bottom: 30px;
+  left: 12px;
+  box-shadow: 0 2.1rem 2rem rgba(0,0,0,0.3);}
+
+/* From prog.css */
+.item:hover {
+  filter: none;
+  transform: scale(1, 1) rotate(0deg) !important;
+  transition: all 0.35s;}
+
+/* From prog.css */
+.item:hover .polaroid:before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  transform: rotate(0deg);
+  height: 90%;
+  width: 90%;
+  bottom: 0%;
+  right: 5%;
+  box-shadow: 0 1rem 3rem rgba(0,0,0,0.2);
+  transition: all 0.35s;}
+
+/* From prog.css */
+.bub-part-b {
+  margin-left: 4px;
+  width: calc(100% - 8px);}
+
+/* From prog.css */
+.bub-part-c {
+  margin-left: 2px;
+  width: calc(100% - 4px);}
+
+/* From prog.css */
+.bub-part-a {
+  margin-left: 6px;
+  width: calc(100% - 12px);}
+
+/* From prog.css */
+.pixel-speech-bubble-arrow {
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-right: 10px solid var(--Speech-Bubble-Border);
+  position: relative;}
+
+/* From prog.css */
+.marker {
+  position: relative;}
+
+/* From prog.css */
+.marker svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+  z-index: -1;}
+
+/* From prog.css */
+.marker path {
+  stroke: rgba(121, 110, 104, 0.5);
+  fill: none;
+  stroke-width: 1.2;
+  stroke-linecap: round;}
+
+/* From styles.css */
+.subhead {
+  font-size: clamp(16px, 2vw, 24px);
+  font-family: MillenniumBold;
+  margin-top: 20px;}
+
+/* From styles.css */
+.link {
+  font-size: clamp(14px, 2vw, 18px);}
+

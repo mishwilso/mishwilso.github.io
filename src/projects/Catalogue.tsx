@@ -1,89 +1,166 @@
-import React, { useState } from 'react';
+import React, { useState} from 'react';
 import Banner from '../components/general/Banner';
+import CatalogueCard from '../components/general/CatalogueCard';
 
 
 const allProjects = [
   {
     id: 1,
-    name: 'Smart Scheduler',
+    name: 'Differentially Private Quantile Research',
+    date: '2024',
+    description: 'A graduate-level research project exploring differentially private quantile estimation algorithms (UQE, AQ, JointExp) under varying dataset sizes and privacy budgets.',
+    tags: ['Python', 'Matplotlib', 'Privacy', 'Research', 'Data Analysis'],
+    icon: '/icons/quantile.png',
+    type: 'Research',
+    details: ['Pellentesque vitae velit ex.'],
+    gallery: ['/images/project1/img1.png', '/images/project1/img2.png',]
+
+  },
+  {
+    id: 2,
+    name: 'AI Chess Game',
+    date: '2024',
+    description: 'A Python-based chess game implementing a minimax AI algorithm for intelligent move prediction. Built using Pygame.',
+    tags: ['Python', 'Pygame', 'AI', 'Game', 'Minimax'],
+    icon: '/icons/chess.png',
+    type: 'Game',
+    details: ['Pellentesque vitae velit ex.'],
+    gallery: ['/images/project1/img1.png', '/images/project1/img2.png',]
+  },
+  {
+    id: 3,
+    name: 'Rust and Roots',
+    date: '2024',
+    description: 'A side-scrolling roguelike platformer built in Unity with friends, inspired by games like Hollow Knight. Contributed gameplay and level design code.',
+    tags: ['C#', 'Unity', 'Game', 'Team Project'],
+    icon: '/icons/rustroots.png',
+    type: 'Game',
+    details: ['Pellentesque vitae velit ex.'],
+    gallery: ['/images/project1/img1.png', '/images/project1/img2.png',]
+  },
+  {
+    id: 4,
+    name: 'Accessible Authentication Method Research',
+    date: '2025',
+    description: 'Usability study evaluating alternative authentication methods for neurodivergent users. Created a Flask-based app with various login flows to gather user feedback.',
+    tags: ['Flask', 'Python', 'Research', 'Accessibility', 'Security'],
+    icon: '/icons/auth.png',
+    type: 'Research',
+    details: ['Pellentesque vitae velit ex.'],
+    gallery: ['/images/project1/img1.png', '/images/project1/img2.png',]
+  },
+  {
+    id: 5,
+    name: 'MishOS',
+    date: '2025',
+    description: 'My personal website—this one! Built with React, TypeScript, and Three.js, combining a 3D intro and retro Windows-95-style UI. Inspired by old-school operating systems and nostalgia.',
+    tags: ['React', 'Typescript', 'Three.js', 'Personal Website', 'Creative'],
+    icon: '/icons/mishos.png',
+    type: 'Website',
+    details: ['Pellentesque vitae velit ex.'],
+    gallery: ['/images/project1/img1.png', '/images/project1/img2.png',]
+  },
+  {
+    id: 6,
+    name: 'Roomease',
     date: '2023',
-    description: 'A scheduling assistant powered by natural language processing and rule-based AI.',
-    icon: '/icons/scheduler.png',
-    tags: ['Python', 'AI', 'NLP', 'Website'],
+    description: 'A mobile app designed to streamline roommate life with shared chores, grocery lists, and calendars. Built with Swift and Firebase.',
+    tags: ['Swift', 'Mobile', 'Firebase', 'UX Design'],
+    icon: '/icons/roomease.png',
+    type: 'App',
+    details: ['Pellentesque vitae velit ex.'],
+    gallery: ['/images/project1/img1.png', '/images/project1/img2.png',]
+  },
+  {
+    id: 7,
+    name: 'Adversarial Machine Learning Research',
+    date: '2025',
+    description: 'Explored various adversarial attack techniques on ML models to evaluate robustness. Implemented attacks using PyTorch and custom scripts.',
+    tags: ['Python', 'PyTorch', 'Adversarial ML', 'Security', 'AI'],
+    icon: '/icons/adversarial.png',
+    type: 'Research',
+    details: ['Pellentesque vitae velit ex.'],
+    gallery: ['/images/project1/img1.png', '/images/project1/img2.png',]
+  },
+  {
+    id: 8,
+    name: 'Social Deduction Model',
+    date: '2024',
+    description: 'A trust-based agent network simulation inspired by Among Us and Werewolf, built using NetLogo and Python.',
+    tags: ['NetLogo', 'Python', 'Simulation', 'AI', 'Networks'],
+    icon: '/icons/trust.png',
+    type: 'Research',
+    details: ['Pellentesque vitae velit ex.'],
+    gallery: ['/images/project1/img1.png', '/images/project1/img2.png',]
+  },
+  {
+    id: 9,
+    name: 'Audio Chef',
+    date: '2024',
+    description: 'A machine learning model trained to classify food sounds, with plans to integrate a visual UI for food identification assistance.',
+    tags: ['Python', 'PyTorch', 'ML', 'Audio Processing', 'Food Tech'],
+    icon: '/icons/audio.png',
+    type: 'ML',
+    details: ['Pellentesque vitae velit ex.'],
+    gallery: ['/images/project1/img1.png', '/images/project1/img2.png',]
+  },
+  {
+    id: 10,
+    name: 'Raspip Boy',
+    date: '2023',
+    description: 'A Raspberry Pi-powered recreation of the Pip-Boy from Fallout, reimagined as a tamagotchi-style pet and media player.',
+    tags: ['Python', 'Raspberry Pi', 'Hardware', 'Pygame'],
+    icon: '/icons/raspip.png',
+    type: 'Hardware',
+    details: ['Pellentesque vitae velit ex.'],
+    gallery: ['/images/project1/img1.png', '/images/project1/img2.png',]
+  },
+  {
+    id: 11,
+    name: 'REST API: Energy Monitoring',
+    date: '2024',
+    description: 'Created a REST API for Burlington Electric during internship to help customers track energy usage across properties. Tailored for the Burlington 2030 initiative.',
+    tags: ['Python', 'REST', 'API', 'Internship', 'Energy'],
+    icon: '/icons/energy.png',
     type: 'Tool',
+    details: ['Pellentesque vitae velit ex.'],
+    gallery: ['/images/project1/img1.png', '/images/project1/img2.png',]
   },
   {
-    id: 2,
-    name: 'Game Engine',
-    date: '2022',
-    description: 'A custom 2D game engine built from scratch in C++.',
-    icon: '/icons/game.png',
-    tags: ['C++', 'Graphics', 'Video Game'],
-    type: 'Engine',
+    id: 12,
+    name: 'Evolutionary Robot',
+    date: '2025',
+    description: 'Simulated a bipedal robot trained with evolutionary algorithms to perform parkour tasks in PyBullet. Included A/B testing and curriculum-based difficulty.',
+    tags: ['Python', 'PyBullet', 'Robotics', 'Simulation', 'Evolution'],
+    icon: '/icons/robot.png',
+    type: 'Research',
+    details: ['Pellentesque vitae velit ex.'],
+    gallery: ['/images/project1/img1.png', '/images/project1/img2.png',]
   },
   {
-    id: 2,
-    name: 'Game Engine',
-    date: '2022',
-    description: 'A custom 2D game engine built from scratch in C++.',
-    icon: '/icons/game.png',
-    tags: ['C++', 'Graphics', 'Video Game'],
-    type: 'Engine',
-  },
-  {
-    id: 2,
-    name: 'Game Engine',
-    date: '2022',
-    description: 'A custom 2D game engine built from scratch in C++.',
-    icon: '/icons/game.png',
-    tags: ['C++', 'Graphics', 'Video Game'],
-    type: 'Engine',
-  },
-  {
-    id: 2,
-    name: 'Game Engine',
-    date: '2022',
-    description: 'A custom 2D game engine built from scratch in C++.',
-    icon: '/icons/game.png',
-    tags: ['C++', 'Graphics', 'Video Game'],
-    type: 'Engine',
-  },
-  {
-    id: 2,
-    name: 'Game Engine',
-    date: '2022',
-    description: 'A custom 2D game engine built from scratch in C++.',
-    icon: '/icons/game.png',
-    tags: ['C++', 'Graphics', 'Video Game'],
-    type: 'Engine',
-  },
-  {
-    id: 2,
-    name: 'Game Engine',
-    date: '2022',
-    description: 'A custom 2D game engine built from scratch in C++.',
-    icon: '/icons/game.png',
-    tags: ['C++', 'Graphics', 'Video Game'],
-    type: 'Engine',
-  },
-  {
-    id: 2,
-    name: 'Game Engine',
-    date: '2022',
-    description: 'A custom 2D game engine built from scratch in C++.',
-    icon: '/icons/game.png',
-    tags: ['C++', 'Graphics', 'Video Game'],
-    type: 'Engine',
+    id: 13,
+    name: 'Battery Death Prediction',
+    date: '2024',
+    description: 'A data science project attempting to predict lithium-ion battery death using cycle data. Involved feature extraction and modeling.',
+    tags: ['Python', 'Data Science', 'Machine Learning', 'Batteries'],
+    icon: '/icons/battery.png',
+    type: 'Research',
+    details: ['Pellentesque vitae velit ex.'],
+    gallery: ['/images/project1/img1.png', '/images/project1/img2.png',]
   },
 ];
 
+
 const categories: { [category: string]: string[] } = {
-  'Frontend Languages': ['HTML', 'Javascript', 'Swift'],
-  'Backend Languages': ['Python', 'Java', 'C++', 'C#'],
-  'Libraries/Tools': ['Pytorch', 'Matplotlib', 'Flask', 'Figma', 'Unity'],
-  'Topic': ['AI', 'Robotics', 'Website', 'Research', 'Video Game'],
-  'Year': ['2023', '2022']
+  'Frontend Languages': ['HTML', 'JavaScript', 'TypeScript', 'Swift'],
+  'Backend Languages': ['Python', 'C++', 'C#', 'Java'],
+  'Libraries/Tools': ['React', 'Three.js', 'Flask', 'Firebase', 'Unity', 'PyTorch', 'Matplotlib', 'NetLogo', 'Pygame'],
+  'Platforms': ['Mobile', 'Website', 'Hardware', 'Simulation'],
+  'Topics': ['AI', 'ML', 'Robotics', 'Security', 'Privacy', 'Accessibility', 'Creative', 'Research', 'Game', 'Data Science', 'Tool'],
+  'Year': ['2025', '2024', '2023'],
+  'Project Type': ['App', 'Website', 'Game', 'Tool', 'ML', 'Research', 'Hardware']
 };
+
 
 const tagCategoryMap: { [tag: string]: string } = {};
 Object.entries(categories).forEach(([category, tags]) => {
@@ -103,8 +180,12 @@ const categoryColors: { [category: string]: string } = {
 const Catalogue: React.FC = () => {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [collapsed, setCollapsed] = useState<{ [key: string]: boolean }>({});
+  const [expandedCard, setExpandedCard] = useState<number | null>(null);
+  const [galleryIndex, setGalleryIndex] = useState(0);
+  const [fullscreenImage, setFullscreenImage] = useState<string | null>(null);
 
   const tagCounts: { [tag: string]: number } = {};
+  
   allProjects.forEach((project) => {
     project.tags.forEach((tag) => {
       tagCounts[tag] = (tagCounts[tag] || 0) + 1;
@@ -177,39 +258,31 @@ const Catalogue: React.FC = () => {
           </div>
 
           <div style={styles.projectsSection}>
+            {/* Project Card Area! */}
             {filteredProjects.length > 0 ? (
               filteredProjects.map((project) => (
-                <div key={project.id} style={styles.card}>
-                  <img src={project.icon} style={styles.icon} alt={project.name} />
-                  <div style={styles.row1}><strong>{project.name}</strong></div>
-                  <div style={styles.row2}>
-                    <span style={styles.date}>{project.date}</span>
-                    <div style={styles.tagWrap}>
-                      {[...project.tags].map((tag) => (
-                        <span
-                          key={tag}
-                          style={{
-                            ...styles.tag,
-                            backgroundColor: categoryColors[tagCategoryMap[tag]] || '#ccc',
-                          }}
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                  <div style={styles.row3}>{project.description}</div>
-                  <div style={styles.row4}>
-                    <button style={styles.readMore}>Read More</button>
-                  </div>
-                </div>
-              ))
+              <CatalogueCard
+                key={project.id}
+                project={project}
+                isExpanded={expandedCard === project.id}
+                tagCategoryMap={tagCategoryMap}
+                categoryColors={categoryColors}
+                onToggleExpand={(id) => {
+                  setGalleryIndex(0);
+                  setExpandedCard(expandedCard === id ? null : id);
+                }}
+                galleryIndex={galleryIndex}
+                styles={styles}
+                setFullscreenImage={setFullscreenImage}
+              />
+            ))
             ) : (
               <div style={styles.noResults}>
                 <p>Sorry, no projects like that yet — but I’ll get working on it!</p>
                 <img src="/images/no-projects.png" alt="No projects found" style={styles.noResultsImage} />
               </div>
             )}
+
             
           </div>
 
@@ -219,11 +292,56 @@ const Catalogue: React.FC = () => {
             </div>
         </div>
         </div>
+        {fullscreenImage && (
+        <div style={fullscreenStyles.modalOverlay}>
+          <div style={fullscreenStyles.modalContent}>
+            <button style={fullscreenStyles.closeButton} onClick={() => setFullscreenImage(null)}>✕</button>
+            <img src={fullscreenImage} style={fullscreenStyles.fullscreenImage} alt="Fullscreen View" />
+          </div>
+        </div>
+)}
+
     </div>
   );
 };
 
+const fullscreenStyles: { [key: string]: React.CSSProperties } = {
+  modalOverlay: {
+    position: 'fixed',
+    top: 0, left: 0, right: 0, bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.75)',
+    zIndex: 9999,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContent: {
+    position: 'relative',
+    maxWidth: '90vw',
+    maxHeight: '90vh',
+  },
+  closeButton: {
+    position: 'fixed',
+    top: 24,
+    right: 30,
+    background: 'transparent',
+    border: 'none',
+    fontSize: 30,
+    color: 'white',
+    cursor: 'pointer',
+    zIndex: 10000,
+  },
+  fullscreenImage: {
+    maxWidth: '100%',
+    maxHeight: '100%',
+    borderRadius: 10,
+    boxShadow: '0 0 20px rgba(0,0,0,0.5)',
+  },
+};
+
+
 const styles: { [key: string]: React.CSSProperties } = {
+  
   outerWrapper: {
     width: '100vw',
     height: '100%',
@@ -314,47 +432,62 @@ const styles: { [key: string]: React.CSSProperties } = {
   projectsSection: {
     flex: 1,
     padding: '16px',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '20px',
-    overflowY: 'auto',
-    height: '100%',
-  },
-  card: {
-    border: '1px solid #ccc',
-    padding: '16px',
-    borderRadius: '8px',
     display: 'grid',
-    gridTemplateRows: 'auto auto auto auto',
-    gridTemplateColumns: '60px 1fr',
-    gridTemplateAreas: `
-      "icon name"
-      "icon tags"
-      "desc desc"
-      "read read"
-    `,
-    gap: '8px',
-    backgroundColor: '#f9f9f9',
+    gap: '20px',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+    alignItems: 'start',
   },
-  icon: {
-    gridArea: 'icon',
-    width: '48px',
-    height: '48px',
-    objectFit: 'contain',
-  },
-  row1: {
-    gridArea: 'name',
-    fontSize: '18px',
-    alignSelf: 'center',
-  },
-  row2: {
-    gridArea: 'tags',
-    display: 'flex',
-    flexWrap: 'wrap',
-    alignItems: 'center',
-    gap: '8px',
-    fontSize: '14px',
-  },
+card: {
+  border: '1px solid #ccc',
+  borderRadius: '12px',
+  overflow: 'hidden',
+  backgroundColor: '#fff',
+  boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
+  display: 'flex',
+  flexDirection: 'column',
+  maxWidth: '800px',
+  width: '100%',
+},
+
+icon: {
+  width: '100%',
+  height: '200px',
+  objectFit: 'cover',
+  display: 'block',
+},
+
+row1: {
+  padding: '16px 16px 8px',
+  fontSize: '20px',
+  fontWeight: 700,
+  color: '#111',
+  fontFamily: 'Millennium',
+},
+
+row2: {
+  padding: '0 16px',
+  display: 'flex',
+  flexWrap: 'wrap',
+  gap: '8px',
+  marginBottom: '8px',
+},
+
+row3: {
+  padding: '0 16px',
+  fontSize: '14px',
+  lineHeight: 1.6,
+  color: '#444',
+  marginBottom: '8px',
+},
+
+row4: {
+  padding: '0 16px 16px',
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+},
+
+
   tagWrap: {
     display: 'flex',
     gap: '6px',
@@ -366,27 +499,22 @@ const styles: { [key: string]: React.CSSProperties } = {
     color: '#fff',
     fontSize: '12px',
   },
-  date: {
-    marginRight: '12px',
-    fontStyle: 'italic',
-  },
-  row3: {
-    gridArea: 'desc',
-    fontSize: '14px',
-    lineHeight: '1.4',
-  },
-  row4: {
-    gridArea: 'read',
-    textAlign: 'right',
-  },
-  readMore: {
-    padding: '6px 12px',
-    border: 'none',
-    backgroundColor: '#1976d2',
-    color: '#fff',
-    borderRadius: '4px',
-    cursor: 'pointer',
-  },
+date: {
+  fontStyle: 'italic',
+  color: '#888',
+  fontSize: '13px',
+},
+
+readMore: {
+  padding: '6px 12px',
+  fontSize: '13px',
+  backgroundColor: '#1976d2',
+  color: '#fff',
+  border: 'none',
+  borderRadius: '4px',
+  cursor: 'pointer',
+  marginLeft: 'auto',
+},
   noResults: {
     flex: 1,
     display: 'flex',
@@ -401,6 +529,39 @@ const styles: { [key: string]: React.CSSProperties } = {
     marginTop: '16px',
     opacity: 0.6,
   },
+  expandedCard: {
+  gridColumn: '1 / -1',
+  transition: 'all 0.4s ease-in-out',
+  maxWidth: '100%',
+},
+
+galleryWrapper: {
+  width: '100%',
+  height: '200px', // same as your icon height
+  overflow: 'hidden',
+  borderRadius: '8px',
+  marginBottom: '12px',
+  position: 'relative',
+  marginLeft: '5px',
+  marginRight: '5px'
+},
+
+galleryImage: {
+  width: '100%',
+  height: '100%',
+  objectFit: 'cover',
+  transition: 'opacity 0.5s ease-in-out',
+},
+detailsList: {
+  padding: '16px',
+  paddingTop: 8,
+  fontSize: '14px',
+  color: '#333',
+  lineHeight: 1.6,
+  listStyleType: 'disc',
+  marginLeft: '1.5rem',
+},
+
 };
 
 export default Catalogue;

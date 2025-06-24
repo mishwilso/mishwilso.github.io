@@ -43,7 +43,7 @@ const Home: React.FC<HomeProps> = (props) => {
                         <h1 style={styles.lastname}>Wilson</h1>
                         <h2 style={styles.subhead}>
                         <span className="marker" style={{zIndex:1, display: '-webkit-inline-box',}}>Software</span>
-                        <span> Engineer </span>
+                        <span> Developer </span>
                         </h2>
                     </div>
                     <div style={styles.buttons}>
