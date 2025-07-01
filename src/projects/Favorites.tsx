@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Banner from '../components/general/Banner';
 import ProjectBlock from '../components/general/ProjectBlock';
+import { useDesktop } from '../components/Desktop/DesktopContext';
+
 
 const projects = [
   {
@@ -102,21 +104,23 @@ const projects = [
   },
 ];
 
-const Favorites = () => {
 
+
+const Favorites: React.FC = () => {
+  const { launchWindow } = useDesktop();
   const [fullscreenImage, setFullscreenImage] = useState<string | null>(null);
 
   return (
     <div className="site-page-content">
       <div className="page-background" style={styles.container}>
       <div className="page-background" style={styles.container}>
-        <h1 style={{fontFamily: 'Pixelout', marginBottom: 10}}>Favorites</h1>
+        <h1 style={{fontFamily: 'Pixelout', marginBottom: 10, fontSize: '4rem'}}>Favorites</h1>
         <p style={{marginTop: '5px', fontSize: '15px'}}>
           These are a few of my favorite projects with a brief description about them. 
           Feel free to check out my GitHub page or read more about each one!
         </p>
 
-        <Banner text="Remember my resume? It’s still here!" />
+        <Banner text="Remember my resume? It’s still here!" onClick={() => launchWindow('resume')} />
 
         {projects.map((project, index) => (
           <React.Fragment key={project.name}>
@@ -129,7 +133,7 @@ const Favorites = () => {
           </React.Fragment>
         ))}
 
-        <Banner text="Remember my resume? It’s still here!" />
+        <Banner text="Remember my resume? It’s still here!" onClick={() => launchWindow('resume')} />
 
       </div>
       </div>

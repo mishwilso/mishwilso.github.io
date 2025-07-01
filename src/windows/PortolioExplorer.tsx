@@ -21,9 +21,16 @@ import Contact from '../portfolio/Contact';
 // import useInitialWindowSize from '../../hooks/useInitialWindowSize';
 
 
-type PortfolioExplorerProps = Pick<WindowProps, 'onClose' | 'onMinimize' | 'onClick'>;
+// type PortfolioExplorerProps = Pick<WindowProps, 'onClose' | 'onMinimize' | 'onClick'>;
 
-const PortfolioExplorer: React.FC<PortfolioExplorerProps> = ({ onClose, onMinimize, onClick }) => {
+interface PortfolioExplorerProps {
+  onClose: () => void;
+  onMinimize: () => void;
+  onClick: () => void;
+  launchWindow: (appKey: string) => void;   // ← add this
+}
+
+const PortfolioExplorer: React.FC<PortfolioExplorerProps> = ({ onClose, onMinimize, onClick, launchWindow }) => {
     
     // Setup Initial Window Size
     //const { initWidth, initHeight } = useInitialWindowSize({ margin: 100 });
@@ -38,7 +45,7 @@ const PortfolioExplorer: React.FC<PortfolioExplorerProps> = ({ onClose, onMinimi
                         <Route path="/projects" element={<Project />} />
                         <Route path="/experience" element={<Experience />} />
                         <Route path="/projects/Favorites" element={<Favorites />} />
-                        <Route path="/projects/Catalogue" element={<Catalogue />} />
+                        <Route path="/projects/Catalogue" element={<Catalogue/>} />
                         <Route path="/contact" element={<Contact />} />
 
                         {/* <Route path="/about" element={<About />} />

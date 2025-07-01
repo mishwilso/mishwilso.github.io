@@ -26,7 +26,7 @@ p, span, li {
 
 /* Icon sizing */
 img.icon, .start-menu__icon, .menu-bar__btn > img {
-    width: 2vw;
+    width: 1.5vw;
     height: auto;
     max-height: 2vh;
 }
@@ -47,23 +47,18 @@ img.icon, .start-menu__icon, .menu-bar__btn > img {
     font-size: 0.85rem;
 }
 
-/* Window resizing */
+/* Window resizing
 .window {
     max-width: 90vw;
     max-height: 90vh;
-}
+} */
 
-.window[data-wm_maximized="true"] {
-    height: calc(100vh - 4vh) !important;
+/* .window[data-wm_maximized="true"] {
+    height: calc(100% - 5%) !important;
     width: 100vw !important;
-}
+} */
 
 /* Taskbar responsive adjustments */
 .task-bar__tray {
-    height: 5vh;
-}
-
-.task-bar__tray__icon {
-    width: 2vw;
-    height: auto;
+    height: 3vh;
 }

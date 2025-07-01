@@ -1,90 +1,149 @@
 import React, { useRef, useState, useEffect } from 'react';
 import Banner from '../components/general/Banner';
+import { useDesktop } from '../components/Desktop/DesktopContext';
+
 
 
 const experiences = [
   {
-    role: 'Software Engineer Intern',
-    company: 'TechCorp',
-    location: 'Somewhere, MA',
-    website: 'https://techcorp.com',
-    startDate: '2025-09-07',
-    endDate: '2025-12-08',
-    description: 'Worked on full-stack feature development in a fast-paced agile team.',
+    role: 'Graduate Teaching Assistant',
+    company: 'University of Vermont',
+    location: 'Burlington, VT',
+    website: 'https://www.uvm.edu',
+    startDate: '2024-08-01',
+    endDate: '2025-05-01',
+    description: 'Led course labs and provided debugging support for core Computer Science classes.',
     bullets: [
-      'Developed RESTful APIs with Node.js',
-      'Improved UI performance in React by 30%',
-      'Wrote unit tests and integrated CI/CD pipelines',
-      'Collaborated across teams to design scalable solutions'
-    ]
+      'Designed an Intro to Databases curriculum, emphasizing SQL fundamentals and design theory',
+      'Reviewed and debugged student Java & Python code, reducing common errors by 30%',
+      'Mentored over 100 students in software best practices, boosting project completion rates by 25%'
+    ],
+    logo: 'uvm.png'
   },
   {
-    role: 'Research Assistant',
-    company: 'University Lab',
-    location: 'Somewhere, MA',
-    website: 'https://university.edu',
-    startDate: '2024-01-01',
+    role: 'Information Technology Intern',
+    company: 'Burlington Electric Department',
+    location: 'Burlington, VT',
+    website: 'https://www.burlingtonelectric.com',
+    startDate: '2024-03-01',
+    endDate: '2024-06-30',
+    description: 'Implemented differentially private quantile algorithms and built internal tools.',
+    bullets: [
+      'Conducted benchmark analysis of DP quantile algorithms to inform privacy-preserving data pipelines',
+      'Developed Python REST services to automate data ingestion, improving processing throughput by 40%',
+      'Collaborated in an Agile team using Git for version control and CI/CD for seamless deployments'
+    ],
+    logo: 'bed.png'
+  },
+  {
+    role: 'Undergraduate Teaching Assistant',
+    company: 'University of Vermont',
+    location: 'Burlington, VT',
+    website: 'https://www.uvm.edu',
+    startDate: '2022-09-01',
     endDate: '2024-05-01',
-    description: 'Conducted privacy research and implemented secure data systems.',
+    description: 'Assisted professors in delivering labs and grading for core CS undergraduate courses.',
     bullets: [
-      'Analyzed DP algorithms for federated learning',
-      'Created benchmark datasets for academic publishing',
-      'Presented findings at IEEE security symposium'
-    ]
+      'Instructed 200+ students in Data Structures, Python, Java, and Software Engineering labs',
+      'Authored new lab activities and debugging guides, enhancing student comprehension',
+      'Co-wrote curriculum materials for an applied Databases course, achieving 90% student satisfaction'
+    ],
+    logo: 'uvm.png'
   },
   {
-  role: 'QA Analyst',
-  company: 'SoftCheck',
-  location: 'Remote',
-  website: 'https://softcheck.com',
-  startDate: '2021-02-01',
-  endDate: '2021-11-30',
-  description: 'Conducted automated testing and quality assurance.',
-  bullets: [
-    'Designed and ran Selenium test suites',
-    'Documented bugs and coordinated with dev team',
-    'Maintained test coverage reports'
-  ]
-},
-{
-  role: 'Technical Writer',
-  company: 'DocuTech',
-  location: 'New York, NY',
-  website: 'https://docutech.com',
-  startDate: '2022-03-15',
-  endDate: '2022-12-10',
-  description: 'Created user documentation for enterprise software.',
-  bullets: [
-    'Wrote release notes and user guides',
-    'Interviewed engineers for technical insights',
-    'Ensured all docs met ISO standards'
-  ]
-},
-{
-  role: 'Junior Developer',
-  company: 'CodeBase',
-  location: 'Boston, MA',
-  website: 'https://codebase.io',
-  startDate: '2023-06-01',
-  endDate: '2023-11-01',
-  description: 'Built frontend components using React.',
-  bullets: [
-    'Contributed to internal design system',
-    'Optimized components for accessibility',
-    'Refactored legacy jQuery code'
-  ]
-}
+    role: 'STEM Ambassador',
+    company: 'University of Vermont',
+    location: 'Burlington, VT',
+    website: 'https://www.uvm.edu',
+    startDate: '2021-09-01',
+    endDate: '2025-05-01',
+    description: 'Led technical workshops and outreach to K–12 students across Vermont.', 
+    bullets: [
+      'Taught over 400 K–12 students in 30+ schools about programming, robotics, and STEM careers',  // :contentReference[oaicite:0]{index=0}
+      'Coordinated and judged FIRST Robotics competitions as part of the DEI Committee',           // :contentReference[oaicite:1]{index=1}
+      'Volunteered weekly with Girls Who Code, mentoring diverse cohorts of student programmers'   // :contentReference[oaicite:2]{index=2}
+    ],
+    logo: '4h.png'
+  },
 
+  {
+    role: 'Undergraduate Research Assistant',
+    company: 'University of Vermont',
+    location: 'Burlington, VT',
+    website: 'https://www.uvm.edu',
+    startDate: '2023-11-01',
+    endDate:   '2024-05-01',
+    description: 'Supported privacy-preserving distributed systems research and algorithm development.',
+    bullets: [
+      'Designed multi-party computation (MPC) algorithms to enable secure collaborative research',  // :contentReference[oaicite:3]{index=3}
+      'Contributed over 10K lines of code via GitHub to benchmark and simulation projects',        // :contentReference[oaicite:4]{index=4}
+      'Analyzed runtime, accuracy, and efficiency trade-offs and presented findings to faculty'     // :contentReference[oaicite:5]{index=5}
+    ],
+    logo: 'uvm.png'
+  },
+  {
+    role: 'Summer Science Educator',
+    company: 'Vermont Summer STEM',
+    location: 'Various, VT',
+    website: 'https://www.uvm.edu',
+    startDate: '2022-06-01',
+    endDate:   '2022-08-31',
+    description: 'Developed and delivered STEM outreach programs to K–12 students in rural Vermont.',
+    bullets: [
+      'Designed age-appropriate curricula in robotics, coding, and engineering for libraries and schools',
+      'Secured a $5K grant to fund materials, travel, and outreach supplies for multi-county program',
+      'Coordinated with town libraries and community centers to schedule and promote summer workshops',
+      'Trained and led two volunteer assistants to deliver hands-on STEM activities to 150+ students'
+    ],
+    logo: '4h.png'
+  },
 
+  {
+    role: 'Seasonal Cabana Worker',
+    company: 'Six Flags America (Water Park)',
+    location: 'Upper Marlboro, MD',
+    website: 'https://www.sixflags.com/america',
+    startDate: '2020-06-01',
+    endDate:   '2022-08-31',
+    description: 'Maintained cabana amenities and provided guest services in the water park area.',
+    bullets: [
+      'Cleaned and reset 20+ private cabanas daily to ensure hygienic, guest-ready areas',
+      'Assisted guests with check-in/out, towel service, and amenity requests in high-volume season',
+      'Operated POS terminal to take food and beverage orders, processing $1K+ in daily sales',
+      'Enforced park safety and water-park policies, coordinating with lifeguards and management'
+    ],
+    logo: 'six_flags.png'
+  },
+
+  {
+    role: 'Orientation Leader',
+    company: 'University of Vermont',
+    location: 'Burlington, VT',
+    website: 'https://www.uvm.edu',
+    startDate: '2023-08-01',
+    endDate:   '2023-09-15',
+    description: 'Welcomed and guided new UVM students through their first weeks on campus.',
+    bullets: [
+      'Led campus tours and icebreaker activities for groups of 20–30 incoming students',
+      'Facilitated Q&A sessions on academic resources, housing, and campus life',
+      'Mentored first-years one-on-one, helping them navigate registration and student services',
+      'Collaborated with Residential Life and Admissions to coordinate orientation events'
+    ],
+    logo: 'uvm.png'
+  }
 ];
+
 
 function formatDate(dateStr: string): string {
   const date = new Date(dateStr);
   return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' , year: 'numeric', });
 }
 
+
+
 const Experience: React.FC = () => {
-  const sortedExperiences = [...experiences].sort((a, b) => new Date(b.startDate).getTime() - new Date(a.startDate).getTime());
+  const { launchWindow } = useDesktop();
+  const sortedExperiences = [...experiences].sort((a, b) => new Date(b.endDate).getTime() - new Date(a.endDate).getTime());
   const [hoveredYear, setHoveredYear] = useState<string | null>(null);
   const [activeYear, setActiveYear] = useState(sortedExperiences[0].startDate.slice(0, 4));
   const yearRefs = useRef<{ [year: string]: HTMLDivElement | null }>({});
@@ -116,10 +175,10 @@ const years = Array.from(new Set(sortedExperiences.map(exp => exp.endDate.slice(
   <div className="site-page-content">
     <div className="page-background" style={styles.container}>
 
-    <h1 style={{fontFamily: 'Pixelout', marginBottom: 10}}> Experience </h1>
+    <h1 style={{fontFamily: 'Pixelout', marginBottom: 10, fontSize: '4rem'}}> Experience </h1>
     <p style={{marginTop: '5px', fontSize: '15px'}}> Here's a catalogue of all of my work experience!</p>
       <div style={{ marginTop: '0px' }}>
-        <Banner text="Remember my resume? It’s still here!" />
+        <Banner text="Remember my resume? It’s still here!" onClick={() => launchWindow('resume')} />
       </div>
     <div style={styles.timelineAndExperience}>
         <div style={styles.yearsColumnContainer}>
@@ -154,8 +213,8 @@ const years = Array.from(new Set(sortedExperiences.map(exp => exp.endDate.slice(
               >
                 <div style={styles.cardHeader}>
                   <img
-                    src={`../logos/${exp.company.toLowerCase().replace(/\s/g, '')}.png`} // Example: /logos/techcorp.png
-                    alt={`${exp.company} logo`}
+                    src={`../logos/${exp.logo}`} // Example: /logos/techcorp.png
+                    alt={`${exp.logo} logo`}
                     style={styles.logo}
                   />
                   <div style={styles.titleSection}>
@@ -194,7 +253,7 @@ const years = Array.from(new Set(sortedExperiences.map(exp => exp.endDate.slice(
         </div>
       </div>
         <div style={{ marginTop: '32px' }}>
-          <Banner text="Remember my resume? It’s still here!" />
+          <Banner text="Remember my resume? It’s still here!" onClick={() => launchWindow('resume')} />
         </div>
     </div>
   </div>

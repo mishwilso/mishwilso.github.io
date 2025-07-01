@@ -1,7 +1,7 @@
 import React, { useState} from 'react';
 import Banner from '../components/general/Banner';
 import CatalogueCard from '../components/general/CatalogueCard';
-
+import { useDesktop } from '../components/Desktop/DesktopContext';
 
 const allProjects = [
   {
@@ -9,144 +9,205 @@ const allProjects = [
     name: 'Differentially Private Quantile Research',
     date: '2024',
     description: 'A graduate-level research project exploring differentially private quantile estimation algorithms (UQE, AQ, JointExp) under varying dataset sizes and privacy budgets.',
-    tags: ['Python', 'Matplotlib', 'Privacy', 'Research', 'Data Analysis'],
-    icon: '/icons/quantile.png',
+    tags: ['Python', 'Privacy and Security', 'Research', 'Matplotlib', ],
+    icon: 'projects/dpquantile1.jpeg',
     type: 'Research',
-    details: ['Pellentesque vitae velit ex.'],
-    gallery: ['/images/project1/img1.png', '/images/project1/img2.png',]
-
+    details: [
+      "Conducted comparative research on runtime, accuracy, and efficiency of differentially private quantile algorithms.",
+      "Benchmarked UQE, AQ, and JointExp to highlight trade-offs between accuracy and runtime.",
+      "Provided practical guidance for algorithm selection based on application needs."
+    ],
+    gallery: ['projects/dpquantile1.jpeg', 'projects/dpquantile2.jpeg', 'projects/dpquantile3.jpeg'],
   },
   {
     id: 2,
     name: 'AI Chess Game',
     date: '2024',
     description: 'A Python-based chess game implementing a minimax AI algorithm for intelligent move prediction. Built using Pygame.',
-    tags: ['Python', 'Pygame', 'AI', 'Game', 'Minimax'],
-    icon: '/icons/chess.png',
+    tags: ['Python', 'Game Design', 'Machine Learning', 'Pygame',],
+    icon: 'projects/chess1.jpeg',
     type: 'Game',
-    details: ['Pellentesque vitae velit ex.'],
-    gallery: ['/images/project1/img1.png', '/images/project1/img2.png',]
+    details: [
+      "Built a playable chess game with AI opponent using minimax and object-oriented design.",
+      "Handled user interaction logic, move legality checks, and game state transitions.",
+      "Implemented clean and modular architecture for future expansion."
+    ],
+    gallery: ['projects/chess1.jpeg', 'projects/chess2.jpeg', 'projects/chess3.jpeg',],
+    github: 'https://github.com/mishwilso/Chess-Game',
+
   },
   {
     id: 3,
     name: 'Rust and Roots',
     date: '2024',
     description: 'A side-scrolling roguelike platformer built in Unity with friends, inspired by games like Hollow Knight. Contributed gameplay and level design code.',
-    tags: ['C#', 'Unity', 'Game', 'Team Project'],
-    icon: '/icons/rustroots.png',
+    tags: ['C#', 'Game Design','Unity'],
+    icon: 'projects/rust1.png',
     type: 'Game',
-    details: ['Pellentesque vitae velit ex.'],
-    gallery: ['/images/project1/img1.png', '/images/project1/img2.png',]
+    details: [
+      "Collaborated with a small team to design a pixel-art roguelike platformer in Unity.",
+      "Coded player movement, level hazards, and attack logic in C#.",
+      "Playtested and iterated on gameplay loops based on team feedback."
+    ],
+    gallery: ['projects/rust1.png', 'projects/rust2.png', 'projects/rust3.png', 'projects/rust4.png',],
+    github: 'https://github.com/mishwilso/BidenGames',
   },
   {
     id: 4,
     name: 'Accessible Authentication Method Research',
     date: '2025',
     description: 'Usability study evaluating alternative authentication methods for neurodivergent users. Created a Flask-based app with various login flows to gather user feedback.',
-    tags: ['Flask', 'Python', 'Research', 'Accessibility', 'Security'],
-    icon: '/icons/auth.png',
+    tags: ['Python', 'Research', 'Privacy and Security', 'Web Development', 'Flask', ],
+    icon: 'projects/auth1.jpeg',
     type: 'Research',
-    details: ['Pellentesque vitae velit ex.'],
-    gallery: ['/images/project1/img1.png', '/images/project1/img2.png',]
+    details: [
+      "Designed and conducted a usability study with neurodivergent participants.",
+      "Built a Flask app with multiple authentication flows (text, image, and multimodal).",
+      "Collected qualitative and quantitative feedback to assess accessibility."
+    ],
+    gallery: ['projects/auth1.jpeg', 'projects/auth2.jpeg','projects/auth3.jpeg','projects/auth4.jpeg', 'projects/auth5.gif'],
+    github: 'https://github.com/mishwilso/Accessible_Authentication',
   },
   {
     id: 5,
     name: 'MishOS',
     date: '2025',
     description: 'My personal website—this one! Built with React, TypeScript, and Three.js, combining a 3D intro and retro Windows-95-style UI. Inspired by old-school operating systems and nostalgia.',
-    tags: ['React', 'Typescript', 'Three.js', 'Personal Website', 'Creative'],
-    icon: '/icons/mishos.png',
+    tags: ['React', 'Typescript', 'Web Development'],
+    icon: 'projects/mishos1.jpeg',
     type: 'Website',
-    details: ['Pellentesque vitae velit ex.'],
-    gallery: ['/images/project1/img1.png', '/images/project1/img2.png',]
+    details: [
+      "Developed a hybrid 3D and retro UI experience using Three.js and React.",
+      "Engineered interactive draggable windows, audio controls, and desktop-style navigation.",
+      "Integrated animated intro sequence and custom pixel art icons."
+    ],
+    gallery: ['projects/mishos1.jpeg', 'projects/mishos2.jpeg', 'projects/mishos3.jpeg',],
+    github: 'https://github.com/mishwilso/mishwilso.github.io',
   },
   {
     id: 6,
     name: 'Roomease',
     date: '2023',
     description: 'A mobile app designed to streamline roommate life with shared chores, grocery lists, and calendars. Built with Swift and Firebase.',
-    tags: ['Swift', 'Mobile', 'Firebase', 'UX Design'],
-    icon: '/icons/roomease.png',
+    tags: ['Swift', 'SQL', 'Firebase', 'UX Design'],
+    icon: 'projects/roommease1.png',
     type: 'App',
-    details: ['Pellentesque vitae velit ex.'],
-    gallery: ['/images/project1/img1.png', '/images/project1/img2.png',]
+    details: [
+      "Created a mobile app in Swift for coordinating chores, groceries, and calendars.",
+      "Used Firebase to manage user data, shared lists, and push notifications.",
+      "Designed UI/UX with feedback from student housemates for daily usability."
+    ],
+    gallery: [ 'projects/roommease1.png',  'projects/roommease2.png',  'projects/roommease3.gif',  'projects/roommease4.gif',],
+    github: 'https://github.com/mishwilso/CS3750_Roomease',
   },
   {
     id: 7,
     name: 'Adversarial Machine Learning Research',
     date: '2025',
     description: 'Explored various adversarial attack techniques on ML models to evaluate robustness. Implemented attacks using PyTorch and custom scripts.',
-    tags: ['Python', 'PyTorch', 'Adversarial ML', 'Security', 'AI'],
-    icon: '/icons/adversarial.png',
+    tags: ['Python', 'PyTorch', 'Machine Learning', 'Privacy and Security', ],
+    icon: 'projects/adv2.png',
     type: 'Research',
-    details: ['Pellentesque vitae velit ex.'],
-    gallery: ['/images/project1/img1.png', '/images/project1/img2.png',]
+    details: [
+      "Implemented adversarial attacks like FGSM and PGD using PyTorch.",
+      "Tested robustness of image classification models under perturbation.",
+      "Built custom training/evaluation scripts for reproducibility and benchmarking."
+    ],
+    gallery: ['projects/adv2.png', 'projects/adv1.png',],
   },
   {
     id: 8,
     name: 'Social Deduction Model',
     date: '2024',
     description: 'A trust-based agent network simulation inspired by Among Us and Werewolf, built using NetLogo and Python.',
-    tags: ['NetLogo', 'Python', 'Simulation', 'AI', 'Networks'],
-    icon: '/icons/trust.png',
+    tags: ['NetLogo', 'Python', 'Machine Learning',],
+    icon: 'projects/moc1.png',
     type: 'Research',
-    details: ['Pellentesque vitae velit ex.'],
-    gallery: ['/images/project1/img1.png', '/images/project1/img2.png',]
+    details: [
+      "Simulated trust dynamics between agents using NetLogo’s multi-agent modeling.",
+      "Modeled deception, voting, and social deduction inspired by games like Werewolf.",
+      "Analyzed network dynamics and emergent behavior from repeated trials."
+    ],
+    gallery: ['projects/moc1.png', 'projects/moc23.png', 'projects/moc2.png', 'projects/moc3.png',],
+    github: 'https://github.com/trueshiba/MOCS-social-deduction-model',
   },
   {
     id: 9,
     name: 'Audio Chef',
     date: '2024',
     description: 'A machine learning model trained to classify food sounds, with plans to integrate a visual UI for food identification assistance.',
-    tags: ['Python', 'PyTorch', 'ML', 'Audio Processing', 'Food Tech'],
-    icon: '/icons/audio.png',
+    tags: ['Python', 'PyTorch', 'Machine Learning',],
+    icon: 'projects/food1.png',
     type: 'ML',
-    details: ['Pellentesque vitae velit ex.'],
-    gallery: ['/images/project1/img1.png', '/images/project1/img2.png',]
+    details: [
+      "Built a PyTorch model to classify audio samples of food being eaten.",
+      "Engineered features like MFCCs and wavelet transforms to improve accuracy.",
+      "Achieved 80%+ accuracy and explored UI integration for food ID assistance."
+    ],
+    gallery: ['projects/food1.png', 'projects/food2.png', 'projects/food3.png', 'projects/food4.png', 'projects/food5.png',],
+    github: 'https://github.com/mishwilso/ML-audio-chef',
   },
   {
     id: 10,
     name: 'Raspip Boy',
     date: '2023',
     description: 'A Raspberry Pi-powered recreation of the Pip-Boy from Fallout, reimagined as a tamagotchi-style pet and media player.',
-    tags: ['Python', 'Raspberry Pi', 'Hardware', 'Pygame'],
-    icon: '/icons/raspip.png',
+    tags: ['Python', 'Raspberry Pi', 'Game Design', 'Pygame'],
+    icon: 'projects/raspip1.jpeg',
     type: 'Hardware',
-    details: ['Pellentesque vitae velit ex.'],
-    gallery: ['/images/project1/img1.png', '/images/project1/img2.png',]
+    details: [
+      "Recreated the Fallout Pip-Boy interface as a custom Raspberry Pi touchscreen device.",
+      "Implemented a tamagotchi-style pet and local media player in Pygame.",
+      "Designed custom shell and button input handler using GPIO and Python."
+    ],
+    gallery: ['projects/raspip1.jpeg', 'projects/raspip2.jpeg', 'projects/raspip3.jpeg', 'projects/raspip4.jpeg', 'projects/raspip5.jpeg',],
+    github: 'https://github.com/mishwilso/raspip-boy',
   },
   {
     id: 11,
     name: 'REST API: Energy Monitoring',
     date: '2024',
     description: 'Created a REST API for Burlington Electric during internship to help customers track energy usage across properties. Tailored for the Burlington 2030 initiative.',
-    tags: ['Python', 'REST', 'API', 'Internship', 'Energy'],
-    icon: '/icons/energy.png',
+    tags: ['Python', 'REST API',],
+    icon: 'projects/rest1.png',
     type: 'Tool',
-    details: ['Pellentesque vitae velit ex.'],
-    gallery: ['/images/project1/img1.png', '/images/project1/img2.png',]
+    details: [
+      "Built a Python REST API to expose energy usage data from Burlington Electric.",
+      "Created endpoints to support customer dashboards and 2030 initiative analysis.",
+      "Wrote documentation and trained users on endpoint usage."
+    ],
+    gallery: ['projects/rest1.png',]
   },
   {
     id: 12,
     name: 'Evolutionary Robot',
     date: '2025',
     description: 'Simulated a bipedal robot trained with evolutionary algorithms to perform parkour tasks in PyBullet. Included A/B testing and curriculum-based difficulty.',
-    tags: ['Python', 'PyBullet', 'Robotics', 'Simulation', 'Evolution'],
-    icon: '/icons/robot.png',
+    tags: ['Python', 'PyBullet', 'Machine Learning'],
+    icon: 'projects/robo4.png',
     type: 'Research',
-    details: ['Pellentesque vitae velit ex.'],
-    gallery: ['/images/project1/img1.png', '/images/project1/img2.png',]
+    details: [
+      "Simulated a bipedal robot performing jumps using PyBullet and Pyrosim.",
+      "Used ray sensors, spring physics, and neural nets to train jumping behaviors.",
+      "Compared A/B fitness functions like airtime vs. horizontal distance."
+    ],
+    gallery: ['projects/robo4.png', 'projects/robo1.png', 'projects/robo2.png', 'projects/robo3.gif',  ],
+    github: 'https://github.com/mishwilso/Evolutionary-Robotics/tree/finalProject',
   },
   {
     id: 13,
     name: 'Battery Death Prediction',
     date: '2024',
     description: 'A data science project attempting to predict lithium-ion battery death using cycle data. Involved feature extraction and modeling.',
-    tags: ['Python', 'Data Science', 'Machine Learning', 'Batteries'],
-    icon: '/icons/battery.png',
+    tags: ['Python','Machine Learning'],
+    icon: 'projects/battery1.png',
     type: 'Research',
-    details: ['Pellentesque vitae velit ex.'],
-    gallery: ['/images/project1/img1.png', '/images/project1/img2.png',]
+    details: [
+      "Analyzed lithium-ion battery cycle data to model capacity degradation over time.",
+      "Engineered features like cycle count, recharge depth, and voltage drop.",
+      "Tested ML models to predict failure points with limited historical data."
+    ],
+    gallery: ['projects/battery1.png', 'projects/battery2.png', 'projects/battery3.png', 'projects/battery4.png', 'projects/battery5.png', 'projects/battery6.png',],
   },
 ];
 
@@ -155,10 +216,14 @@ const categories: { [category: string]: string[] } = {
   'Frontend Languages': ['HTML', 'JavaScript', 'TypeScript', 'Swift'],
   'Backend Languages': ['Python', 'C++', 'C#', 'Java'],
   'Libraries/Tools': ['React', 'Three.js', 'Flask', 'Firebase', 'Unity', 'PyTorch', 'Matplotlib', 'NetLogo', 'Pygame'],
-  'Platforms': ['Mobile', 'Website', 'Hardware', 'Simulation'],
-  'Topics': ['AI', 'ML', 'Robotics', 'Security', 'Privacy', 'Accessibility', 'Creative', 'Research', 'Game', 'Data Science', 'Tool'],
   'Year': ['2025', '2024', '2023'],
-  'Project Type': ['App', 'Website', 'Game', 'Tool', 'ML', 'Research', 'Hardware']
+  'Topics': [
+    'Machine Learning',
+    'Privacy and Security',
+    'Game Design',
+    'Research',
+    'Web Development'
+  ],
 };
 
 
@@ -177,7 +242,9 @@ const categoryColors: { [category: string]: string } = {
   'Year': '#7f8c8d',
 };
 
+
 const Catalogue: React.FC = () => {
+  const { launchWindow } = useDesktop();
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [collapsed, setCollapsed] = useState<{ [key: string]: boolean }>({});
   const [expandedCard, setExpandedCard] = useState<number | null>(null);
@@ -208,13 +275,22 @@ const Catalogue: React.FC = () => {
     return selectedTags.length === 0 || selectedTags.every((tag) => allTags.includes(tag));
   });
 
+  // counts of how many filtered projects include each tag
+  const visibleTagCounts: { [tag: string]: number } = {};
+  filteredProjects.forEach(proj =>
+    proj.tags.forEach(t => {
+      visibleTagCounts[t] = (visibleTagCounts[t] || 0) + 1;
+    })
+  );
+
+
   return (
     <div style={styles.outerWrapper}>
       <div className="site-page-content">
 
         <div className="page-background" style={{ paddingLeft: 32,}}>
           <div style={styles.pageHeader}>
-            <h1 style={{ fontFamily: 'Pixelout', marginBottom: 10 }}>Catalogue</h1>
+            <h1 style={{ fontFamily: 'Pixelout', marginBottom: 10, fontSize: '4rem' }}>Catalogue</h1>
             <p>Welcome to A catalogue of all of my projects!</p>
           </div>
           <div style={styles.container}>
@@ -246,7 +322,10 @@ const Catalogue: React.FC = () => {
                                 ...(selectedTags.includes(tag) ? styles.customCheckboxChecked : {}),
                               }}
                             />
-                            {tag} ({tagCounts[tag] || 0})
+                            {tag}{' ' }
+                            <em style={{ color: '#888' }}>
+                              ({visibleTagCounts[tag] ?? 0})
+                            </em>
                           </label>
                         ))}
                       </div>
@@ -288,7 +367,7 @@ const Catalogue: React.FC = () => {
 
           </div>
             <div style={{ marginTop: '32px' }}>
-              <Banner text="Remember my resume? It’s still here!" />
+              <Banner text="Remember my resume? It’s still here!" onClick={() => launchWindow('resume')} />
             </div>
         </div>
         </div>
@@ -445,8 +524,11 @@ card: {
   boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
   display: 'flex',
   flexDirection: 'column',
-  maxWidth: '800px',
+  maxWidth: '475px',
   width: '100%',
+  height: '550px',
+  //  height: '100%', // or a fixed minHeight if needed
+  position: 'relative',
 },
 
 icon: {
@@ -485,6 +567,7 @@ row4: {
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
+  marginTop: 'auto',
 },
 
 
@@ -513,7 +596,7 @@ readMore: {
   border: 'none',
   borderRadius: '4px',
   cursor: 'pointer',
-  marginLeft: 'auto',
+  // marginLeft: 'auto',
 },
   noResults: {
     flex: 1,
@@ -536,14 +619,16 @@ readMore: {
 },
 
 galleryWrapper: {
-  width: '100%',
+  width: '98%',
   height: '200px', // same as your icon height
   overflow: 'hidden',
   borderRadius: '8px',
   marginBottom: '12px',
   position: 'relative',
   marginLeft: '5px',
-  marginRight: '5px'
+  marginRight: '5px',
+  marginTop:'5px',
+
 },
 
 galleryImage: {

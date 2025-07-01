@@ -1,20 +1,24 @@
-    import React from 'react';
-      
-    const Banner: React.FC<{ text: string }> = ({ text }) => {
-    return (
-        <div style={styles.bannerWrapper}>
-        <hr style={styles.fadedLine} />
+import React from 'react';
 
-        <div style={styles.bannerContent}>
-          <img src="/images/resume-icon.png" alt="Resume Icon" style={styles.bannerImage} />
-          <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" style={styles.bannerLink}>
-            {text}
-          </a>
-        </div>
-
-        <hr style={styles.fadedLine} />
+interface BannerProps {
+text: string;
+onClick: () => void;
+}
+  
+const Banner: React.FC<BannerProps> = ({ text, onClick  }) => {
+  return (
+      <div style={styles.bannerWrapper} onClick={onClick}>
+      <hr style={styles.fadedLine} />
+      <div style={styles.bannerContent}>
+        <img
+          src="../art/mish.png"
+          alt="Resume Icon"
+          style={styles.bannerImage}
+        />
+        <span style={styles.bannerLink}>{text}</span>
       </div>
-
+      <hr style={styles.fadedLine} />
+    </div>
   );
 };
 
@@ -32,15 +36,13 @@ const styles: { [key: string]: React.CSSProperties } = {
     display: 'flex',
     alignItems: 'center',
     gap: '12px',
-    // backgroundColor: 'rgba(255, 255, 255, 0.85)',
     padding: '1px 2px',
     borderRadius: '8px',
-    // boxShadow: '0 0 4px rgba(0, 0, 0, 0.1)',
     },
 
     bannerImage: {
-    width: '32px',
-    height: '32px',
+    width: '48px',
+    height: '48px',
     objectFit: 'cover',
     borderRadius: '4px',
     },

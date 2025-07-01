@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import Banner from '../components/general/Banner';
+import { useDesktop } from '../components/Desktop/DesktopContext';
+
 
 const Contact: React.FC = () => {
+  const { launchWindow } = useDesktop();
   const [formData, setFormData] = useState({
     name: '',
     company: '',
@@ -14,23 +17,42 @@ const Contact: React.FC = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // You can replace this with actual form submission logic
-    alert('Message sent!');
+    try {
+      const response = await fetch('https://formspree.io/f/xkgbpzrb', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        alert('Message sent!');
+        setFormData({ name: '', company: '', email: '', message: '' });
+      } else {
+        alert('Something went wrong.');
+      }
+    } catch (error) {
+      alert('Failed to send message.');
+    }
   };
+
+
+  const [copied, setCopied] = useState(false);
 
   return (
   <div className="site-page-content">
     <div className="page-background" style={styles.container}>
-      <h1 style={{fontFamily: 'Pixelout', marginBottom: 5}}>Contact</h1>
+      <h1 style={{fontFamily: 'Pixelout', marginBottom: 5, fontSize: '4rem'}}>Contact</h1>
       <p>If you're interested in working together or just want to say hi, feel free to reach out! I'm currently looking for opportunities in software and research positions.</p>
 
       <div style={styles.socials}>
-        <a href="https://github.com/yourgithub" target="_blank" rel="noopener noreferrer" style={styles.iconButton}>
+        <a href="https://github.com/mishwilso" target="_blank" rel="noopener noreferrer" style={styles.iconButton}>
           <FaGithub size={24} /> GitHub
         </a>
-        <a href="https://linkedin.com/in/yourlinkedin" target="_blank" rel="noopener noreferrer" style={styles.iconButton}>
+        <a href="https://www.linkedin.com/in/mish-wilson/" target="_blank" rel="noopener noreferrer" style={styles.iconButton}>
           <FaLinkedin size={24} /> LinkedIn
         </a>
       </div>
@@ -73,10 +95,23 @@ const Contact: React.FC = () => {
         <button type="submit" style={styles.submitButton}>Send Message</button>
       </form>
 
-      <p style={{ marginTop: 32 }}>Prefer email? Reach me at: <strong>your.email@example.com</strong></p>
+      <p style={{ marginTop: 32 }}>
+        Prefer email? Reach me at:{' '}
+        <strong
+          style={{ cursor: 'pointer', textDecoration: 'underline', color: '#0077cc' }}
+          onClick={() => {
+            navigator.clipboard.writeText('mishwilsonk@gmail.com');
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
+          }}
+        >
+          mishwilsonk@gmail.com
+        </strong>
+        {copied && <span style={{ marginLeft: 10, color: 'green' }}>Copied to clipboard!</span>}
+      </p>
 
-      <div style={{ marginTop: 48 }}>
-        <Banner text="Remember my resume? It’s still here!" />
+      <div style={{ marginTop: '-20px' }}>
+        <Banner text="Remember my resume? It’s still here!" onClick={() => launchWindow('resume')} />
       </div>
     </div>
   </div>
@@ -87,9 +122,10 @@ const styles: { [key: string]: React.CSSProperties } = {
   container: {
     paddingLeft: 48,
     paddingRight: 48,
+    display: 'flex',
+    flexDirection: 'column',
     fontFamily: 'Millennium',
     fontSize: 15,
-    height: '100%',
     boxSizing: 'border-box',
     flex: 1
   },

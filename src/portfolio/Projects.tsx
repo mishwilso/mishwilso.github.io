@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
+import { useDesktop } from '../components/Desktop/DesktopContext';
 
 
 
@@ -54,8 +55,8 @@ const ProjectBox: React.FC<ProjectBoxProps> = ({
     );
 };
 
-
 const Projects: React.FC = () => {
+  const { launchWindow } = useDesktop();
   return (
     <div className="site-page-content">
       <div className="page-background" style={styles.container}>
@@ -64,21 +65,21 @@ const Projects: React.FC = () => {
         <div style={styles.upperLeft}>
             <div className="item">
                 <div className="polaroid">
-                    <img src="https://image.ibb.co/b8UJBc/administration_architecture_big_ben_221166.jpg"/> 
-                    <div className="caption">I Miss My Wife Tails</div>
+                    <img src="me/judge.jpeg"/> 
+                    <div className="caption">My Friends and I before 12 Hours of FIRST Robotics volunteer work (it was worth it)</div>
                 </div>
             </div>
         </div>
         <div style={styles.verticalDivider} />
         <div style={styles.upperRight}>
-            <h1 style={{fontFamily: 'Pixelout', marginBottom: 5}}>Projects</h1>
+            <h1 style={{fontFamily: 'Pixelout', marginBottom: 5, fontSize: '4rem'}}>Projects</h1>
           <p style={{ fontSize: 15}}>I've worked on a lot of projects so here's a bunch of them. Sorted between my favorite which have my top 5 projects. Then I have a 
             project catelogue so you can sort through the project easily.
           </p>
 
               <div style={styles.projectLinksContainer}>
                 <ProjectBox
-                    icon={'/printer.gif'}
+                    icon={'art/star.gif'}
                     iconStyle={styles.computerIcon}
                     title="Favorites"
                     subtitle="My Top 5 Favorite Projects!"

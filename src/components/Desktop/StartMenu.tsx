@@ -1,50 +1,92 @@
-import React, { useState, useEffect, useRef } from 'react';
-
-import '../../assets/css/base.css';
-import '../../assets/css/components.css';
-import '../../assets/css/layout.css';
-import '../../assets/css/themes.css';
-import '../../assets/css/responsive.css';
+// StartMenu.tsx
+import React, { useEffect, useRef } from 'react';
 
 interface StartMenuProps {
-  onLaunch: (title: string) => void; // Optional future support
-  onShutdown: () => void ;
+  onLaunch: (title: string) => void;
+  onShutdown: () => void;
 }
 
 const StartMenu: React.FC<StartMenuProps> = ({ onLaunch, onShutdown }) => {
-  const [open, setOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
-  // Close when clicking outside
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (!menuRef.current?.contains(e.target as Node)) {
-        setOpen(false);
+        // close logic in parent
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+const programsSub = [
+  { label: 'Portfolio', key: 'portfolio' },
+  { label: 'Credit',    key: 'credit'    },
+];
+
+  const stripeLetters = ['M', 'i', 's', 'h', 'O', 'S'];
+
   return (
-    <>
-          <div className="start-menu">
-            <div className="start-menu__stripe">
-              <span className="start-menu__stripe-text">
-                MISH&nbsp;<b>WILSON</b>
-              </span>
-            </div>
-            <div className="start-menu__menu">
-              <div className="start-menu__item" onClick={() => onLaunch('resume')}>
-                <img className="start-menu__icon" src="/img/startmenu/Resume.png" alt="Resume" />
-                <span className="start-menu__item-text">Resume</span>
+    <div className="start-menu" ref={menuRef}>
+      {/* stripe with mixed-color text */}
+      <div className="start-menu__stripe">
+        <span
+          className="start-menu__stripe-text"
+          style={{ fontFamily: 'Millennium', fontWeight: 'bold', letterSpacing: '0.25em', }}
+        >
+          <span style={{ color: 'black' }}>MishOS</span>
+          <span style={{ color: 'white' }}>95</span>
+        </span>
+      </div>
+
+      {/* Single-column menu */}
+      <div className="start-menu__menu">
+        {/* Programs with hover submenu */}
+        <div className="start-menu__item has-submenu">
+          <img
+            className="start-menu__icon"
+            src="/img/startmenu/Programs.png"
+            alt="Programs"
+          />
+          <span className="start-menu__item-text">Programs</span>
+          <div className="start-menu__submenu">
+            {programsSub.map(({ label, key }) => (
+              <div key={key} className="start-menu__submenu-item" onClick={() => onLaunch(key)}>
+                <span>{label}</span>
               </div>
-              <div className="start-menu__item" onClick={onShutdown}>
-                <span className="start-menu__item-text">Shut Down</span>
-              </div>
-            </div>
+            ))}
           </div>
-    </>
+        </div>
+
+        {/* Resume */}
+        <div className="start-menu__item" onClick={() => onLaunch('resume')}>
+          <img
+            className="start-menu__icon"
+            src="/img/desktop/TextFile.png"
+            alt="Resume"
+          />
+          <span className="start-menu__item-text">Resume</span>
+        </div>
+
+        {/* Spacer for gap */}
+        {/* Big gap to fit 5 items */}
+        <div style={{ height: '130px' }} />
+
+
+        {/* Separator line */}
+        <div className="start-menu__separator" />
+
+        {/* Shut Down */}
+        <div className="start-menu__item" onClick={onShutdown}>
+          <img
+            className="start-menu__icon"
+            src="/img/startmenu/Shutdown.png"
+            alt="Shut Down"
+          />
+          <span className="start-menu__item-text">Shut Down…</span>
+        </div>
+      </div>
+    </div>
   );
 };
 

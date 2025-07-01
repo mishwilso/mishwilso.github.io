@@ -6,16 +6,28 @@ import Credit from '../../windows/Credit';
 import Resume from '../../windows/Resume';
 import PortfolioExplorer from '../../windows/PortolioExplorer';
 import Window98 from './Window98';
-
-// import '../../assets/css/98.css';
-// import '../../assets/css/index.css';
-// import '../../assets/css/prog.css';
+import { DesktopProvider } from './DesktopContext';
+import InternetExplorerContent from '../../windows/InternetExplorer';
+import EmailClientContent from '../../windows/EmailClientContent';
+import { soundManager } from '../../utils/SoundManager';
 
 import '../../assets/css/base.css';
 import '../../assets/css/components.css';
 import '../../assets/css/layout.css';
 import '../../assets/css/themes.css';
 import '../../assets/css/responsive.css';
+
+let audioCtx: AudioContext;
+let masterGain: GainNode;
+
+function initAudio() {
+  if (!audioCtx) {
+    audioCtx = new AudioContext();
+    masterGain = audioCtx.createGain();
+    masterGain.gain.value = 1;
+    masterGain.connect(audioCtx.destination);
+  }
+}
 
 interface WindowData {
   id: string;
@@ -29,11 +41,6 @@ interface WindowData {
   height: number;
   bottomLeftText: string;
 }
-const BASE_WIDTH = 1920;
-const BASE_HEIGHT = 1080;
-
-const scaleWidth = (px: number) => Math.round((px / BASE_WIDTH) * window.innerWidth);
-const scaleHeight = (px: number) => Math.round((px / BASE_HEIGHT) * window.innerHeight);
 
 const APPLICATIONS = {
   portfolio: {
@@ -41,8 +48,8 @@ const APPLICATIONS = {
     name: 'Portfolio',
     shortcutIcon: '/img/desktop/MyComputer.png',
     component: PortfolioExplorer,
-    get width() { return scaleWidth(900); },
-    get height() { return scaleHeight(678); },
+    widthRatio: 0.55,
+    heightRatio: 0.85,
     bottomLeftText: 'Projects & Demos',
   },
   credit: {
@@ -50,8 +57,8 @@ const APPLICATIONS = {
     name: 'Credit',
     shortcutIcon: '/img/desktop/BatchFile.png',
     component: Credit,
-    get width() { return scaleWidth(750); },
-    get height() { return scaleHeight(650); },
+    widthRatio: 0.39,
+    heightRatio: 0.6,
     bottomLeftText: 'Welcome to MishOS',
   },
   resume: {
@@ -59,18 +66,59 @@ const APPLICATIONS = {
     name: 'Resume',
     shortcutIcon: '/img/desktop/TextFile.png',
     component: Resume,
-    get width() { return scaleWidth(520); },
-    get height() { return scaleHeight(430); },
+    widthRatio: 0.3,
+    heightRatio: 0.4,
     bottomLeftText: 'My Resume',
   },
+  ie: {
+  key: 'ie',
+  name: 'Internet Explorer',
+  shortcutIcon: '/img/taskbar/IESmall.png',
+  component: InternetExplorerContent,   // you’ll create this
+  widthRatio: 0.7,
+  heightRatio: 0.7,
+  bottomLeftText: 'Internet Explorer',
+},
+email: {
+    key: 'email',
+    name: 'Mail',
+    shortcutIcon: '/img/taskbar/OutlookExpress.png',
+    component: EmailClientContent,
+    widthRatio: 0.6,
+    heightRatio: 0.6,
+    bottomLeftText: 'Mish Wilson Mail',
+  },
+
 };
 
 const Desktop98: React.FC = () => {
   const [windows, setWindows] = useState<WindowData[]>([]);
   const [zIndexCounter, setZIndexCounter] = useState(1);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
   const [showStartMenu, setShowStartMenu] = useState(false);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  
+  // Audio Stuff
+  useEffect(() => {
+    initAudio();
+  }, [])
 
+  // useEffect(() => {
+  //   const handleFirstClick = () => soundManager.resumeContext();
+  //   document.addEventListener('click', handleFirstClick);
+  //   return () => {
+  //     document.removeEventListener('click', handleFirstClick);
+  //   };
+  // }, []);
+
+  useEffect(() => {
+    const onMouseDown = () => soundManager.playClick();
+
+    document.addEventListener('mousedown', onMouseDown);
+    return () => {
+      document.removeEventListener('mousedown', onMouseDown);
+
+    };
+  }, []);
 
   useEffect(() => {
     const resizeCanvas = () => {
@@ -91,45 +139,49 @@ const Desktop98: React.FC = () => {
     return () => window.removeEventListener('resize', resizeCanvas);
   }, []);
 
-  const launchWindow = (appKey: string) => {
-    const app = APPLICATIONS[appKey];
-    if (!app) return;
+  
 
-    const id = crypto.randomUUID();
 
-    // Recalculate sizes here using current window size
-    const BASE_WIDTH = 1920;
-    const BASE_HEIGHT = 1080;
-    const scaleWidth = (px: number) => Math.round((px / BASE_WIDTH) * window.innerWidth);
-    const scaleHeight = (px: number) => Math.round((px / BASE_HEIGHT) * window.innerHeight);
+// Desktop98.tsx
+const launchWindow = (appKey: string) => {
+  const app = APPLICATIONS[appKey];
+  if (!app) return;
 
-    setWindows((prev) => [
-      ...prev,
-      {
-        id,
-        title: app.name,
-        component: React.createElement(app.component, {
+  const id = crypto.randomUUID();
+  const width = Math.round(app.widthRatio * window.innerWidth);
+  const height = Math.round(app.heightRatio * window.innerHeight);
+
+  // Reserve and assign the z-index in one go
+  // 1) Add the window
+  setWindows(prevWins => [
+    ...prevWins,
+    {
+      id,
+      title: app.name,
+      component: React.createElement(app.component, {           
           onClose: () => closeWindow(id),
           onMinimize: () => minimizeWindow(id),
           onClick: () => focusWindow(id),
-        }),
-        minimized: false,
-        zIndex: zIndexCounter,
-        icon: app.shortcutIcon,
-        maximized: false,
-        width: scaleWidth(app.width),
-        height: scaleHeight(app.height),
-        bottomLeftText: app.bottomLeftText,
-      },
-    ]);
-    setZIndexCounter((z) => z + 1);
-  };
+          launchWindow }),
+      minimized: false,
+      zIndex: zIndexCounter,        // use the current counter
+      icon: app.shortcutIcon,
+      maximized: false,
+      width,
+      height,
+      bottomLeftText: app.bottomLeftText,
+    },
+  ]);
+
+  // 2) Bump the counter
+  setZIndexCounter(prev => prev + 1);
+};
+
+
 
 
   const minimizeWindow = (id: string) => {
-    setWindows((prev) =>
-      prev.map((w) => (w.id === id ? { ...w, minimized: true } : w))
-    );
+    setWindows((prev) => prev.map((w) => (w.id === id ? { ...w, minimized: true } : w)));
   };
 
   const closeWindow = (id: string) => {
@@ -137,61 +189,73 @@ const Desktop98: React.FC = () => {
   };
 
   const focusWindow = (id: string) => {
-    setWindows((prev) =>
-      prev.map((w) =>
-        w.id === id ? { ...w, zIndex: zIndexCounter } : w
+  setZIndexCounter((prevZ) => {
+    const newZ = prevZ;   // this is the next, unused z-index
+
+    // Immediately update windows using that newZ
+    setWindows((prevWins) =>
+      prevWins.map((w) =>
+        w.id === id
+          ? { ...w, zIndex: newZ }
+          : w
       )
     );
-    setZIndexCounter((z) => z + 1);
-  };
+
+    // Return prevZ + 1 so the next call reserves a higher z-index
+    return prevZ + 1;
+  });
+};
 
   const toggleMinimize = (id: string) => {
-    setWindows((prev) =>
-      prev.map((w) => (w.id === id ? { ...w, minimized: !w.minimized } : w))
-    );
+    setWindows((prev) => prev.map((w) => (w.id === id ? { ...w, minimized: !w.minimized } : w)));
   };
 
   const toggleMaximize = (id: string) => {
-    setWindows((prev) =>
-      prev.map((w) =>
-        w.id === id ? { ...w, maximized: !w.maximized } : w
-      )
-    );
+    setWindows((prev) => prev.map((w) => (w.id === id ? { ...w, maximized: !w.maximized } : w)));
   };
 
   
+  const onShowDesktop = () => {
+    const anyOpen = windows.some(w => !w.minimized);
+    setWindows(prev => 
+      prev.map(w => ({...w, minimized: anyOpen ? true: false}))
+
+    );
+  };
+
+
+
+  // ─── auto-open Credits window on mount ───────────────────────
+  useEffect(() => {
+    launchWindow('credit');
+  }, []);  // only runs once, when Desktop98 mounts
+
 
   return (
-    <div className="desktop-container">
-      <canvas id="selections" ref={canvasRef} />
+    <DesktopProvider launchWindow={launchWindow}>
+      <div className="desktop-container">
+        <canvas id="selections" ref={canvasRef} />
 
       <div className="desktop">
-        {Object.entries(APPLICATIONS).map(([key, app], index) => {
-          const spacing = 150; // vertical spacing between icons
-          const topOffset = 32; // space below taskbar or padding
-          const defaultX = 32;
-          const defaultY = topOffset + index * spacing;
-
-          return (
+          {Object.entries(APPLICATIONS).map(([key, app], index) => (
             <DesktopIcon
               key={key}
               icon={app.shortcutIcon}
               label={app.name}
               launchId={key}
               onLaunch={launchWindow}
-              x={defaultX}
-              y={defaultY}
+              x={32}
+              y={32 + index * 150}
             />
-          );
-        })}
-      </div>
+          ))}
+        </div>
 
-      <div className="window-host">
-        {[...windows]
-          .filter((w) => !w.minimized)
-          .sort((a, b) => (a.zIndex ?? 0) - (b.zIndex ?? 0))
-          .map((win) => (
-            <Window98
+        <div className="window-host">
+          {[...windows]
+            .filter((w) => !w.minimized)
+            .sort((a, b) => (a.zIndex ?? 0) - (b.zIndex ?? 0))
+            .map((win) => (
+              <Window98
                 key={win.id}
                 id={win.id}
                 title={win.title}
@@ -205,21 +269,31 @@ const Desktop98: React.FC = () => {
                 onMaximize={() => toggleMaximize(win.id)}
                 onClose={() => closeWindow(win.id)}
                 onClick={() => focusWindow(win.id)}
-            >
-              {win.component}
-            </Window98>
-          ))}
-      </div>
-      <Taskbar
-        windows={windows}
-        onFocusWindow={focusWindow}
-        onToggleMinimize={toggleMinimize}
-        onLaunch={launchWindow}
-        onStartClick={() => setShowStartMenu(prev => !prev)}
-      />
-      {showStartMenu && <StartMenu onLaunch={launchWindow} onShutdown={() => {/* do shutdown */}} />}
+              >
+                {win.component}
+              </Window98>
+            ))}
+        </div>
 
-    </div>
+
+        <Taskbar
+          windows={windows}
+          onFocusWindow={focusWindow}
+          onToggleMinimize={toggleMinimize}
+          onLaunch={launchWindow}
+          onShowDesktop={onShowDesktop}
+          onStartClick={() => setShowStartMenu((prev) => !prev)}
+        />
+        {showStartMenu && (
+          <StartMenu
+            onLaunch={launchWindow}
+            onShutdown={() => {
+              // do shutdown
+            }}
+          />
+        )}
+      </div>
+    </DesktopProvider>
   );
 };
 

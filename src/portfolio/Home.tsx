@@ -42,8 +42,8 @@ const Home: React.FC<HomeProps> = (props) => {
                         <h1 style={styles.firstname}>Mish</h1>
                         <h1 style={styles.lastname}>Wilson</h1>
                         <h2 style={styles.subhead}>
-                        <span className="marker" style={{zIndex:1, display: '-webkit-inline-box',}}>Software</span>
-                        <span> Developer </span>
+                        <span className="marker" style={{zIndex:1, display: '-webkit-inline-box', fontSize: '2rem'}}>Software</span>
+                        <span style={{fontSize: '2rem'}}> Developer </span>
                         </h2>
                     </div>
                     <div style={styles.buttons}>

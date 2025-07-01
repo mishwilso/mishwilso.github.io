@@ -18,44 +18,29 @@ interface WindowProps {
   onMinimize?: () => void;
   onClose: () => void;
   onClick: () => void;
-  maximized?: boolean; 
+  maximized?: boolean;
   bottomLeftText: string;
 }
-
-// export interface WindowProps {
-//     closeWindow: () => void;
-//     minimizeWindow: () => void;
-//     onInteract: () => void;
-//     width: number;
-//     height: number;
-//     top: number;
-//     left: number;
-//     windowTitle?: string;
-//     bottomLeftText?: string;
-//     rainbow?: boolean;
-//     windowBarColor?: string;
-//     windowBarIcon?: IconName;
-//     onWidthChange?: (width: number) => void;
-//     onHeightChange?: (height: number) => void;
-// }
 
 declare interface StyleSheetCSS {
   [key: string]: React.CSSProperties;
 }
 
 const Window98: React.FC<WindowProps> = (props) => {
-
   const [zIndex] = useState(props.zIndex);
   const windowRef = useRef<HTMLDivElement>(null);
   const [dragging, setDragging] = useState(false);
   const [resizing, setResizing] = useState(false);
-  const [position, setPosition] = useState({ x: 100, y: 100 });
+  const [position, setPosition] = useState({ x: 300, y: 50 });
   const [size, setSize] = useState({ width: props.width ?? 320, height: props.height ?? 240 });
+
   const prevSize = useRef(size);
   const prevPosition = useRef(position);
 
   const offset = useRef({ x: 0, y: 0 });
-  const resizeStart = useRef({ x: 0, y: 0, width: 0, height: 0 });
+  const resizeStart = useRef<{ x: number, y: number, width: number, height: number, direction?: string }>({
+    x: 0, y: 0, width: 0, height: 0,
+  });
 
   const handleMouseDownDrag = (e: React.MouseEvent) => {
     if (props.maximized) return;
@@ -68,7 +53,7 @@ const Window98: React.FC<WindowProps> = (props) => {
     e.stopPropagation();
   };
 
-  const handleMouseDownResize = (e: React.MouseEvent) => {
+  const startResize = (e: React.MouseEvent, direction: string) => {
     if (props.maximized) return;
     setResizing(true);
     resizeStart.current = {
@@ -76,17 +61,18 @@ const Window98: React.FC<WindowProps> = (props) => {
       y: e.clientY,
       width: size.width,
       height: size.height,
+      direction,
     };
     props.onClick();
     e.stopPropagation();
   };
+
 
   const handleMouseMove = (e: MouseEvent) => {
     if (dragging && windowRef.current) {
       const windowEl = windowRef.current;
       const windowWidth = windowEl.offsetWidth;
       const windowHeight = windowEl.offsetHeight;
-
       const screenWidth = window.innerWidth;
       const screenHeight = window.innerHeight;
 
@@ -94,18 +80,35 @@ const Window98: React.FC<WindowProps> = (props) => {
       const newY = e.clientY - offset.current.y;
 
       const clampedX = Math.max(0, Math.min(screenWidth - windowWidth, newX));
-      const clampedY = Math.max(0, Math.min(screenHeight - windowHeight, newY)); // 50 = height of search bar
+      const clampedY = Math.max(0, Math.min(screenHeight - windowHeight, newY));
 
       setPosition({ x: clampedX, y: clampedY });
     }
-    if (resizing) {
+
+    if (resizing && resizeStart.current.direction && windowRef.current) {
       const dx = e.clientX - resizeStart.current.x;
       const dy = e.clientY - resizeStart.current.y;
-      setSize({
-        width: Math.max(200, resizeStart.current.width + dx),
-        height: Math.max(120, resizeStart.current.height + dy),
-      });
+      const dir = resizeStart.current.direction;
+      let newWidth = resizeStart.current.width;
+      let newHeight = resizeStart.current.height;
+      let newX = position.x;
+      let newY = position.y;
+
+      if (dir.includes('e')) newWidth = Math.max(200, resizeStart.current.width + dx);
+      if (dir.includes('s')) newHeight = Math.max(120, resizeStart.current.height + dy);
+      if (dir.includes('w')) {
+        newWidth = Math.max(200, resizeStart.current.width - dx);
+        newX = position.x + dx;
+      }
+      if (dir.includes('n')) {
+        newHeight = Math.max(120, resizeStart.current.height - dy);
+        newY = position.y + dy;
+      }
+
+      setSize({ width: newWidth, height: newHeight });
+      setPosition({ x: newX, y: newY });
     }
+
   };
 
   const handleMouseUp = () => {
@@ -132,8 +135,8 @@ const Window98: React.FC<WindowProps> = (props) => {
         ...styles.window,
         top: props.maximized ? 0 : position.y,
         left: props.maximized ? 0 : position.x,
-        width: props.maximized ? 'calc(100vw - 0px)' : size.width,
-        height: props.maximized ? 'calc(100vh - 55px)' : size.height,
+        width: props.maximized ? '100vw' : size.width,
+        height: props.maximized ? '95vh' : size.height,
         zIndex: props.zIndex,
       }}
       onMouseDown={props.onClick}
@@ -144,46 +147,64 @@ const Window98: React.FC<WindowProps> = (props) => {
           <span className="title-bar-text" style={styles.titleText}>{props.title}</span>
         </div>
         <div className="title-bar-controls" style={styles.titleBarControls}>
-            
           {props.onMinimize && (
             <button aria-label="Minimize" onClick={(e) => { e.stopPropagation(); props.onMinimize(); }} />
           )}
           {props.onMaximize && (
             <button
-                aria-label={props.maximized ? "Restore" : "Maximize"}
-                onClick={(e) => {
+              aria-label={props.maximized ? "Restore" : "Maximize"}
+              onClick={(e) => {
                 e.stopPropagation();
                 if (!props.maximized) {
-                    prevSize.current = size;
-                    prevPosition.current = position;
+                  prevSize.current = size;
+                  prevPosition.current = position;
                 } else {
-                    setSize(prevSize.current);
-                    setPosition(prevPosition.current);
+                  setSize(prevSize.current);
+                  setPosition(prevPosition.current);
                 }
                 props.onMaximize();
-                }}
+              }}
             />
-            )}
+          )}
           <button aria-label="Close" onClick={(e) => { e.stopPropagation(); props.onClose(); }} />
         </div>
       </div>
+
       <div className="contentOuter" style={styles.contentOuter}>
         <div className="contentInner" style={styles.contentInner}>
-      <div className="window-body" style={styles.body}>
-        {props.children}
-      </div>
-      <div className="window-bottom-text" style={styles.bottomText}>
+          <div className="window-body" style={styles.body}>
+            {props.children}
+          </div>
+          <div className="window-bottom-text" style={styles.bottomText}>
             {props.bottomLeftText}
-        </div>
+          </div>
         </div>
       </div>
-        
 
-      <div
-        className="window-resize-handle"
-        style={styles.resizeHandle}
-        onMouseDown={handleMouseDownResize}
-      />
+      {/* {typeof size.width === 'number' && typeof size.height === 'number' && (
+        <div
+          className="window-resize-handle"
+          style={styles.resizeHandle}
+          onMouseDown={handleMouseDownResize}
+        />
+      )} */}
+      {/* Resize handles */}
+      {!props.maximized && (
+        <>
+          {/* Corners */}
+          <div className="resize-handle nw" onMouseDown={(e) => startResize(e, 'nw')} />
+          <div className="resize-handle ne" onMouseDown={(e) => startResize(e, 'ne')} />
+          <div className="resize-handle sw" onMouseDown={(e) => startResize(e, 'sw')} />
+          <div className="resize-handle se" onMouseDown={(e) => startResize(e, 'se')} />
+
+          {/* Sides */}
+          <div className="resize-handle n" onMouseDown={(e) => startResize(e, 'n')} />
+          <div className="resize-handle s" onMouseDown={(e) => startResize(e, 's')} />
+          <div className="resize-handle e" onMouseDown={(e) => startResize(e, 'e')} />
+          <div className="resize-handle w" onMouseDown={(e) => startResize(e, 'w')} />
+        </>
+      )}
+
     </div>
   );
 };
@@ -191,8 +212,6 @@ const Window98: React.FC<WindowProps> = (props) => {
 export default Window98;
 export type { WindowProps };
 
-
-// ✅ Henry-inspired inline style object
 const styles: StyleSheetCSS = {
   window: {
     position: 'absolute',
@@ -202,7 +221,7 @@ const styles: StyleSheetCSS = {
     overflow: 'hidden',
   },
   titleBar: {
-    background: 'linear-gradient(to right, rgb(55, 97, 157),rgb(149, 187, 240))',
+    background: 'linear-gradient(to right, rgb(55, 97, 157), rgb(149, 187, 240))',
     color: 'white',
     height: '20px',
     display: 'flex',
@@ -236,35 +255,24 @@ const styles: StyleSheetCSS = {
     border: `1px solid white`,
     borderTopColor: 'darkgray',
     borderLeftColor: 'darkgray',
-    // flexGrow: 1,
-
-    // marginTop: 8,
-    // marginBottom: 8,
-    // overflow: 'hidden',
-
   },
   contentInner: {
     width: '100%',
     height: '100%',
-    // boxShadow: 'inset 1px 1px #fff, inset -1px -1px #808080',
     padding: 0,
     boxSizing: 'border-box',
-
     border: `1px solid lightgray`,
     borderTopColor: 'black',
     borderLeftColor: 'black',
     display: 'flex',
     flexDirection: 'column',
-    
   },
   body: {
     flex: 1,
     backgroundColor: 'white',
-    // height: 'calc(100% - 30px)',
     overflow: 'auto',
-    padding: 0,
     margin: 1,
-    // padding: '1px'
+    padding: 0,
   },
   resizeHandle: {
     position: 'absolute',
@@ -276,14 +284,13 @@ const styles: StyleSheetCSS = {
     backgroundImage: 'url(/img/resize-handle.png)',
     backgroundSize: 'cover',
   },
-
   bottomText: {
-  backgroundColor: '#C0C0C0',
-  borderTop: '1px solid #808080',
-  padding: '1px 8px',
-  fontSize: '11px',
-  fontFamily: 'var(--font-ui)',
-  lineHeight: '12px',
-  color: '#000',
-}
+    backgroundColor: '#C0C0C0',
+    borderTop: '1px solid #808080',
+    padding: '1px 8px',
+    fontSize: '11px',
+    fontFamily: 'var(--font-ui)',
+    lineHeight: '12px',
+    color: '#000',
+  },
 };

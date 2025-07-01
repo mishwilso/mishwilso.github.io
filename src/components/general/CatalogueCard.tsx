@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import ExpandedCardCarousel from './ExpandedCardCarousel';
+import { FaGithub } from 'react-icons/fa';
 
 interface Project {
   id: number;
@@ -11,6 +12,7 @@ interface Project {
   type: string;
   details: string[];
   gallery: string[];
+  github?: string;
 }
 
 interface Props {
@@ -53,6 +55,7 @@ const CatalogueCard: React.FC<Props> = ({
         ...(isExpanded ? styles.expandedCard : {}),
       }}
     >
+
       {/* Image or Gallery */}
       <div style={styles.galleryWrapper}>
         {isExpanded ? (
@@ -81,6 +84,7 @@ const CatalogueCard: React.FC<Props> = ({
         ))}
       </div>
 
+        
       {/* Title + Desc */}
       <div style={styles.row1}>{project.name}</div>
       <div style={styles.row3}>{project.description}</div>
@@ -99,6 +103,29 @@ const CatalogueCard: React.FC<Props> = ({
       {/* Footer */}
       <div style={styles.row4}>
         <span style={styles.date}>{project.date}</span>
+        {/* 🔗 GitHub Top Right Icon */}
+        
+        {project.github && (
+          <a
+            href={project.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              fontSize: '1.5rem',
+              color: '#24292e',
+              backgroundColor: 'white',
+              zIndex: 1,
+              transition: 'opacity 0.2s',
+              marginLeft: 'auto',
+              marginRight: '16px',
+              marginTop: '5px',
+            }}
+            title="View on GitHub"
+          >
+            <FaGithub />
+          </a>
+        )}
+        
         <button
           style={styles.readMore}
           onClick={() => onToggleExpand(project.id)}

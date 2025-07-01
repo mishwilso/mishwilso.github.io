@@ -2,10 +2,11 @@ import React from 'react';
 import Banner from '../components/general/Banner';
 import { initMarkerCircle } from '../components/general/CircleEffect';
 import { useEffect } from 'react';
+import { useDesktop } from '../components/Desktop/DesktopContext';
 
 
 const About: React.FC = () => {
-
+  const { launchWindow } = useDesktop();
   useEffect(() => {
         initMarkerCircle();
         }, []);
@@ -26,12 +27,17 @@ const About: React.FC = () => {
         </div>
         <div style={styles.verticalDivider} />
         <div style={styles.upperRight}>
-            <h1 style={{fontFamily: 'Pixelout', marginBottom: 20}} >Hello!</h1>
-            <h2 style={{fontFamily: 'MillenniumBold', marginTop: 0, marginBottom: 0}}>I'm <span className="marker" style={{zIndex:1, display: '-webkit-inline-box',}}>Mish Wilson </span> :)</h2>
-          <p style={{fontFamily: 'Millennium', marginTop: 20, fontSize: 18}} >I'm a Computer Science Graduate from the University of Vermont. I've always wanted to create a
-            website to showcase myself, and was greatly inspired by [Insert Names], so I decided to give it a shot.
-            This page is still a Work In Progress, but the Portfolio portion of it somewhat functional. If you have any questions
-            or you're looking to hire me, feel free to contact me at mishwilsonk@gmail.com.
+            <h1 style={{fontFamily: 'Pixelout', marginBottom: 20, fontSize: '4rem'}} >Hello!</h1>
+            <h2 style={{fontFamily: 'MillenniumBold', marginTop: 0, marginBottom: 0, fontSize: '1.5rem'}}>I'm <span className="marker" style={{zIndex:1, display: '-webkit-inline-box', fontSize: '1.5rem'}}>Mish Wilson </span> :)</h2>
+          <p style={{fontFamily: 'Millennium', marginTop: 20, fontSize: 18}} > 
+            I’m a Computer Science graduate of the University of Vermont.  
+          I’ve always wanted to build a website to showcase my work,  
+          and was inspired by Henry Heffernan and the creators of the Window93 project.  
+          This page is a work in progress, but the Portfolio section  
+          is already up and running. Questions? Looking to hire me?  
+          Shoot me an email at{' '}
+          <a href="mailto:mishwilsonk@gmail.com" style={styles.link}>
+            mishwilsonk@gmail.com </a>
           </p>
         </div>
       </div>
@@ -39,18 +45,31 @@ const About: React.FC = () => {
       {/* Divider with Banner */}
       {/* <PixelSpeechBubble text="Wanna see my!"/>  */}
 
-      <Banner text="Want to see my resume? Click here!"/>
+      <Banner text="Want to see my resume? Click here!" onClick={() => launchWindow('resume')}/>
 
       {/* Lower Half */}
       <div style={styles.lower}>
         <div style={styles.lowerSection}>
           <h3 style={{ fontFamily: 'MillenniumBold', marginBottom: 8 , marginTop: 0 , textAlign: 'center'}}> About Me</h3>
 
-          <p style={{fontFamily: 'Millennium', marginTop: 20, fontSize: 15}} >I've been coding since I was 10, it was just Scratch code but I had so much fun doing it that
-            I had to keep going. Low and behold I now have a Master's Degree in Computer Science, and finally have the 
-            skills to work on projects that little me dreamed so hard about. bLAH bLAH, HAVE MORE WORDS. smth smth Jamaica,
-            smth smth They Them. You know the gist.
-          </p>
+          <p style={styles.paragraph}>
+          I’ve loved computers since I was a kid growing up in Jamaica.  
+          Back then, access was limited and I dove into every book and tutorial I could find.  
+          After high school I moved to the States, dove into computer science,  
+          and today I hold a Master’s in CS. It’s a dream come true:  
+          I finally have the skills to build the projects my younger self  
+          could only imagine.
+        </p>
+        <p style={styles.paragraph}>
+          What really drives me now is the chance to solve real-world problems with code.  
+          Whether it's writing a script to help me organize, crafting an intuitive UI, or  
+          exploring new coding languages, I’m excited by every challenge. In grad school,  
+          I fell in love with privacy-preserving systems that  
+          let organizations collaborate without exposing sensitive data. Which drove me to write a 
+          paper of DP Quantile Algorithms. When I’m not coding,  
+          you’ll find me tinkering with side-projects, playing video games, or sharing  
+          my knowledge with the next generation through teaching and mentorship.
+        </p>
           <div style={{
             position: 'absolute',
             top: 0,
