@@ -1,29 +1,18 @@
-import { useState } from 'react';
-import InitialSetup from './InitialSetup';
-import $ from 'jquery';
+// App.tsx
+// Entry point that toggles between initial setup and the desktop environment.
 
-import Desktop98 from './components/Desktop/Desktop98';
+import { useState } from 'react';
+import InitialSetup from './setup/InitialSetup';
+import Desktop98 from './components/desktop/Desktop98';
 
 function App() {
   const [enteredDesktop, setEnteredDesktop] = useState(false);
-  const [showStartMenu, setShowStartMenu] = useState(false);
-  const [inDesktopMode, setInDesktopMode] = useState(true); // when false, show InitialSetup
 
-  const handleShutdown = () => {
-    setInDesktopMode(false);
-    setShowStartMenu(false);
-  };
-
-  return (
-    <>
-      {!enteredDesktop ? (
-        <InitialSetup onEnterDesktop={() => setEnteredDesktop(true)} />
-      ) : (
-        <Desktop98 /> // ← this loads your Windows 98 React UI
-      )}
-    </>
+  return enteredDesktop ? (
+    <Desktop98 />
+  ) : (
+    <InitialSetup onEnterDesktop={() => setEnteredDesktop(true)} />
   );
 }
-
 
 export default App;

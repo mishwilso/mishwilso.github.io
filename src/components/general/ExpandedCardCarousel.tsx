@@ -1,3 +1,7 @@
+// ExpandedCardCarousel.tsx
+// Automatically scrolls through images unless the user breathes near it.
+// Also has buttons. users love buttons.
+
 import React, { useEffect, useRef, useState } from 'react';
 
 interface CarouselProps {
@@ -6,22 +10,26 @@ interface CarouselProps {
   setFullscreenImage: (img: string | null) => void;
 }
 
-const ExpandedCardCarousel: React.FC<CarouselProps> = ({ images, isActive, setFullscreenImage }) => {
+const ExpandedCardCarousel: React.FC<CarouselProps> = ({
+  images,
+  isActive,
+  setFullscreenImage,
+}) => {
   const carouselRef = useRef<HTMLDivElement>(null);
   const [scrollIndex, setScrollIndex] = useState(0);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
-  const [canAutoScroll, setCanAutoScroll] = useState(false);
+  const [canAutoScroll, setCanAutoScroll] = useState(false); // toggle for magic
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
 
-  // Detect if we should scroll
+  // Step 1: Figure out if scrolling is even allowed. 
   useEffect(() => {
     if (!carouselRef.current) return;
     const el = carouselRef.current;
 
     el.addEventListener('scroll', updateScrollButtons);
     window.addEventListener('resize', updateScrollButtons);
-    updateScrollButtons();
+    updateScrollButtons(); // hope for the best
 
     return () => {
       el.removeEventListener('scroll', updateScrollButtons);
@@ -29,8 +37,7 @@ const ExpandedCardCarousel: React.FC<CarouselProps> = ({ images, isActive, setFu
     };
   }, [images]);
 
-
-  // Update Scroll button state
+  // Step 2: Determine scroll eligibility. Because accessibility matters!!
   const updateScrollButtons = () => {
     if (!carouselRef.current) return;
     const el = carouselRef.current;
@@ -38,8 +45,7 @@ const ExpandedCardCarousel: React.FC<CarouselProps> = ({ images, isActive, setFu
     setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth);
   };
 
-
-  // Auto scroll
+  // Step 3: Auto-scroll, people can’t be trusted to click
   useEffect(() => {
     if (!isActive || images.length <= 1 || !canAutoScroll) return;
 
@@ -66,12 +72,12 @@ const ExpandedCardCarousel: React.FC<CarouselProps> = ({ images, isActive, setFu
   }, [scrollIndex, images, isActive, canAutoScroll]);
 
   const handleMouseEnter = () => {
-    if (intervalRef.current) clearInterval(intervalRef.current);
+    if (intervalRef.current) clearInterval(intervalRef.current); // you win this round, user
   };
 
   const handleMouseLeave = () => {
     if (canAutoScroll && isActive && images.length > 1) {
-      setScrollIndex((prev) => prev + 1);
+      setScrollIndex((prev) => prev + 1); // good luck keeping this in sync
     }
   };
 
@@ -85,18 +91,14 @@ const ExpandedCardCarousel: React.FC<CarouselProps> = ({ images, isActive, setFu
     const delta = dir === 'left' ? -visibleWidth : visibleWidth;
     carouselRef.current.scrollBy({ left: delta, behavior: 'smooth' });
 
-    // Delay update slightly so scroll completes
-    setTimeout(updateScrollButtons, 300);
+    setTimeout(updateScrollButtons, 300); // hacky but it works
   };
 
-
-  // Button styles
+  // Button aesthetics so the UI looks cool
   const navBtnStyle: React.CSSProperties = {
     height: '200px',
     width: '40px',
     minWidth: '32px',
-    // border: '1px solid #ccc',
-    // borderRadius: '4px',
     background: 'rgb(173, 158, 142)',
     cursor: 'pointer',
     fontWeight: 'bold',
@@ -108,7 +110,7 @@ const ExpandedCardCarousel: React.FC<CarouselProps> = ({ images, isActive, setFu
     transition: 'background 0.2s',
     marginTop: '-25px',
     boxShadow: 'inset 0px 0px #0a0a0a, inset 0px 0px #fff, inset 0px 0px grey, inset 0px 0px #dfdfdf',
-    color: 'white'
+    color: 'white',
   };
 
   const navBtnHoverStyle: React.CSSProperties = {
@@ -133,11 +135,13 @@ const ExpandedCardCarousel: React.FC<CarouselProps> = ({ images, isActive, setFu
         style={{
           ...navBtnStyle,
           ...(hoveredBtn === 'left' ? navBtnHoverStyle : {}),
-          ...(canScrollLeft ? {} : {
-          opacity: 0.2,
-          cursor: 'default',
-          pointerEvents: 'none',
-    }),
+          ...(canScrollLeft
+            ? {}
+            : {
+                opacity: 0.2,
+                cursor: 'default',
+                pointerEvents: 'none',
+              }),
         }}
         onMouseEnter={() => setHoveredBtn('left')}
         onMouseLeave={() => setHoveredBtn(null)}
@@ -158,7 +162,6 @@ const ExpandedCardCarousel: React.FC<CarouselProps> = ({ images, isActive, setFu
           width: '100%',
           height: '225px',
           backgroundColor: 'rgb(173, 158, 142, 0.2)',
-          // borderRadius: '8px',
           padding: '0 8px',
           boxSizing: 'border-box',
           gap: '8px',
@@ -177,7 +180,7 @@ const ExpandedCardCarousel: React.FC<CarouselProps> = ({ images, isActive, setFu
               borderRadius: '8px',
               flexShrink: 0,
               transition: 'transform 0.2s ease',
-              marginTop: -25
+              marginTop: -25,
             }}
             alt={`project-image-${index}`}
           />
@@ -190,11 +193,13 @@ const ExpandedCardCarousel: React.FC<CarouselProps> = ({ images, isActive, setFu
         style={{
           ...navBtnStyle,
           ...(hoveredBtn === 'right' ? navBtnHoverStyle : {}),
-          ...(canScrollRight ? {} : {
-            opacity: 0.2,
-            cursor: 'default',
-            pointerEvents: 'none',
-          }),
+          ...(canScrollRight
+            ? {}
+            : {
+                opacity: 0.2,
+                cursor: 'default',
+                pointerEvents: 'none',
+              }),
           right: '10px',
         }}
         onMouseEnter={() => setHoveredBtn('right')}

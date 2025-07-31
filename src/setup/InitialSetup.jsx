@@ -5,7 +5,7 @@ import React, { Suspense, useRef, useState, useEffect, useContext, createContext
 import * as THREE from 'three';
 import { LightWithHelper, Light, WindowDirectionalLight, DebugDirectionalLight} from './SceneLights';
 import { useControls } from 'leva';
-import MainCameraController from './ControlledCamera';
+import MainCameraController from '../camera/ControlledCamera';
 import { Environment, useProgress } from '@react-three/drei';
 import MusicControlPanel from './MusicControlPanel'; // adjust path if needed
 

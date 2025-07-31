@@ -1,3 +1,7 @@
+// src/components/Desktop/Taskbar.tsx
+// classic taskbar start button, open apps, clock, etc
+// mish note: this one took a while...
+
 import React, { useEffect, useState, useRef } from 'react';
 import '../../assets/css/base.css';
 import '../../assets/css/components.css';
@@ -20,6 +24,7 @@ interface TaskbarProps {
   onStartClick: () => void;
 }
 
+// generate calendar layout for month view
 function generateCalendar(year: number, month: number) {
   const first = new Date(year, month, 1).getDay(); // 0 = Sun
   const daysInMonth = new Date(year, month + 1, 0).getDate();
@@ -27,13 +32,13 @@ function generateCalendar(year: number, month: number) {
   let week: (number | null)[] = Array(7).fill(null);
   let dayCounter = 1;
 
-  // fill first week
+  // fill the first week
   for (let i = first; i < 7; i++) {
     week[i] = dayCounter++;
   }
   weeks.push(week);
 
-  // fill remaining weeks
+  // then fill the rest
   while (dayCounter <= daysInMonth) {
     week = Array(7).fill(null);
     for (let i = 0; i < 7 && dayCounter <= daysInMonth; i++) {
@@ -61,11 +66,11 @@ const Taskbar: React.FC<TaskbarProps> = ({
   const [showCalendar, setShowCalendar] = useState(false);
   const calRef = useRef<HTMLDivElement>(null);
   const [showVolume, setShowVolume] = useState(false);
-  const [volume, setVolume]       = useState(0.01);    // 0.0 – 1.0
-  const [muted, setMuted]         = useState(false);
-  const volRef = useRef<HTMLDivElement>(null)
+  const [volume, setVolume] = useState(0.01); // default low volume
+  const [muted, setMuted] = useState(false);
+  const volRef = useRef<HTMLDivElement>(null);
 
-  // Update time every second
+  // update time every second :)
   useEffect(() => {
     const update = () => {
       const now = new Date();
@@ -80,6 +85,7 @@ const Taskbar: React.FC<TaskbarProps> = ({
     return () => clearInterval(interval);
   }, []);
 
+  // close calendar if you click outside of it
   useEffect(() => {
     const handle = (e: MouseEvent) => {
       if (showCalendar && !calRef.current?.contains(e.target as Node)) {
@@ -90,13 +96,12 @@ const Taskbar: React.FC<TaskbarProps> = ({
     return () => document.removeEventListener('mousedown', handle);
   }, [showCalendar]);
 
-  // calendar state
   const now = new Date();
   const [calMonth, setCalMonth] = useState(now.getMonth());
-  const [calYear, setCalYear]   = useState(now.getFullYear());
+  const [calYear, setCalYear] = useState(now.getFullYear());
   const weeks = generateCalendar(calYear, calMonth);
 
-
+  // close volume panel if clicked elsewhere
   useEffect(() => {
     const handle = (e: MouseEvent) => {
       if (showVolume && !volRef.current?.contains(e.target as Node)) {
@@ -107,23 +112,22 @@ const Taskbar: React.FC<TaskbarProps> = ({
     return () => document.removeEventListener('mousedown', handle);
   }, [showVolume]);
 
-
+  // pipe volume + mute state into sound system
   useEffect(() => {
     soundManager.setVolume(volume);
     soundManager.setMuted(muted);
   }, [volume, muted]);
 
-
   return (
     <div className="task-bar">
-      {/* Start button */}
+      {/* start button! */}
       <button id="start-btn" onClick={onStartClick}>
         <img src="/img/taskbar/Start.png" alt="Start" width="100%" height="100%" />
       </button>
 
       <div className="task-bar__divider" />
 
-      {/* Quick Launch icons */}
+      {/* quick launch section */}
       <img
         src="/img/taskbar/ShowDesktop.png"
         alt="Show Desktop"
@@ -148,7 +152,7 @@ const Taskbar: React.FC<TaskbarProps> = ({
 
       <div className="task-bar__divider" />
 
-      {/* Taskbar window buttons */}
+      {/* open windows */}
       <div className="task-bar__main">
         {windows.map((win) => (
           <div
@@ -157,13 +161,7 @@ const Taskbar: React.FC<TaskbarProps> = ({
             onClick={() => onToggleMinimize(win.id)}
             title={win.title}
           >
-            {win.icon && (
-              <img
-                src={win.icon}
-                alt=""
-                style={{ marginRight: 4 }}
-              />
-            )}
+            {win.icon && <img src={win.icon} alt="" style={{ marginRight: 4 }} />}
             {win.title}
           </div>
         ))}
@@ -171,7 +169,7 @@ const Taskbar: React.FC<TaskbarProps> = ({
 
       <div className="task-bar__divider" />
 
-      {/* Tray + clock */}
+      {/* system tray, calendar, time, volume */}
       <div className="task-bar__tray">
         <img
           src="/img/taskbar/TaskScheduler.png"
@@ -188,28 +186,25 @@ const Taskbar: React.FC<TaskbarProps> = ({
           onClick={() => setShowVolume((v) => !v)}
         />
 
-        {/* Clock */}
+        {/* live clock! */}
         <span id="time">{time}</span>
 
-        {/* Calender */}
+        {/* calendar dropdown */}
         {showCalendar && (
-          <div
-            ref={calRef}
-            style={{
-              position: 'absolute',
-              bottom: '100%',      // sits on top of taskbar
-              right: 0,
-              width: 200,
-              background: '#C0C0C0',
-              border: '2px solid #000',
-              boxShadow: '2px 2px 0 #FFF inset, -2px -2px 0 #808080 inset',
-              fontFamily: 'Millennium',
-              fontSize: '12px',
-              padding: '4px',
-              zIndex: 1000
-            }}
-          >
-            {/* Header with icon + title */}
+          <div ref={calRef} style={{
+            position: 'absolute',
+            bottom: '100%',
+            right: 0,
+            width: 200,
+            background: '#C0C0C0',
+            border: '2px solid #000',
+            boxShadow: '2px 2px 0 #FFF inset, -2px -2px 0 #808080 inset',
+            fontFamily: 'Millennium',
+            fontSize: '12px',
+            padding: '4px',
+            zIndex: 1000
+          }}>
+            {/* calendar title bar */}
             <div style={{
               background: 'linear-gradient(to right, rgb(55, 97, 157), rgb(149, 187, 240))',
               color: '#fff',
@@ -217,23 +212,23 @@ const Taskbar: React.FC<TaskbarProps> = ({
               display: 'flex',
               alignItems: 'center',
               gap: '4px',
-              
             }}>
-              <img src="/img/taskbar/TaskScheduler.png" alt="Date" width={16} height={16}/>
-              <span style={{fontSize: '14px'}}>Date</span>
+              <img src="/img/taskbar/TaskScheduler.png" alt="Date" width={16} height={16} />
+              <span style={{ fontSize: '14px' }}>Date</span>
             </div>
 
-            {/* Controls */}
+            {/* month + year picker */}
             <div style={{ display: 'flex', gap: '4px', marginTop: '4px' }}>
               <select
                 value={calMonth}
                 onChange={e => setCalMonth(Number(e.target.value))}
-                style={{ width: '90px',        // <-- shrink this down
-                fontSize: '12px',
-                fontFamily: 'Millennium' 
-                }   }
+                style={{
+                  width: '90px',
+                  fontSize: '12px',
+                  fontFamily: 'Millennium'
+                }}
               >
-                {monthNames.map((m,i) => (
+                {monthNames.map((m, i) => (
                   <option key={m} value={i}>{m}</option>
                 ))}
               </select>
@@ -241,29 +236,29 @@ const Taskbar: React.FC<TaskbarProps> = ({
                 type="number"
                 value={calYear}
                 onChange={e => setCalYear(Number(e.target.value))}
-                style={{ width: '90px', textAlign:'center' }}
+                style={{ width: '90px', textAlign: 'center' }}
               />
             </div>
 
-            {/* Day-of-week header */}
+            {/* weekday labels */}
             <div style={{
-              display:'grid',
-              gridTemplateColumns: 'repeat(7,1fr)',
-              textAlign:'center',
-              marginTop:'4px',
-              color:'#555'
+              display: 'grid',
+              gridTemplateColumns: 'repeat(7, 1fr)',
+              textAlign: 'center',
+              marginTop: '4px',
+              color: '#555'
             }}>
-              {['S','M','T','W','T','F','S'].map(d => (
+              {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map(d => (
                 <div key={d}>{d}</div>
               ))}
             </div>
 
-            {/* Dates grid */}
+            {/* date grid */}
             <div style={{
-              display:'grid',
-              gridTemplateColumns: 'repeat(7,1fr)',
-              textAlign:'center',
-              rowGap:'2px'
+              display: 'grid',
+              gridTemplateColumns: 'repeat(7, 1fr)',
+              textAlign: 'center',
+              rowGap: '2px'
             }}>
               {weeks.flat().map((day, idx) => {
                 const isToday =
@@ -274,9 +269,9 @@ const Taskbar: React.FC<TaskbarProps> = ({
                   <div
                     key={idx}
                     style={{
-                      padding:'2px',
+                      padding: '2px',
                       background: isToday ? 'navy' : 'transparent',
-                      color:    isToday ? '#fff'  : '#000'
+                      color: isToday ? '#fff' : '#000'
                     }}
                   >
                     {day ?? ''}
@@ -286,41 +281,34 @@ const Taskbar: React.FC<TaskbarProps> = ({
             </div>
           </div>
         )}
-        {/* End of Calender */}
 
-        {/* Volume panel */}
+        {/* volume control dropdown */}
         {showVolume && (
-          <div
-            ref={volRef}
-            style={{
-              position: 'absolute',
-              bottom: '100%',
-              right: '55px',       // adjust to sit above the icon
-              width: '60px',
-              background: '#C0C0C0',
-              border: '2px solid #000',
-              boxShadow: '2px 2px 0 #FFF inset, -2px -2px 0 #808080 inset',
-              padding: '8px',
-              fontFamily: 'MS Sans Serif',
-              fontSize: '12px',
-              zIndex: 1000,
-            }}
-          >
+          <div ref={volRef} style={{
+            position: 'absolute',
+            bottom: '100%',
+            right: '55px',
+            width: '60px',
+            background: '#C0C0C0',
+            border: '2px solid #000',
+            boxShadow: '2px 2px 0 #FFF inset, -2px -2px 0 #808080 inset',
+            padding: '8px',
+            fontFamily: 'MS Sans Serif',
+            fontSize: '12px',
+            zIndex: 1000,
+          }}>
             <div style={{ marginBottom: '55px', textAlign: 'center' }}>
               Volume
             </div>
             <div style={{
               position: 'relative',
               width: '100%',
-              // height: '100px',      // height for the track length
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
               flexDirection: 'column',
-              // padding: '4px 2px',
-              // boxSizing: 'border-box'
             }}>
-              {/* Vertical slider */}
+              {/* slider rotates sideways because of course it does */}
               <input
                 type="range"
                 min={0}
@@ -332,14 +320,19 @@ const Taskbar: React.FC<TaskbarProps> = ({
                   setVolume(parseFloat(e.target.value));
                 }}
                 style={{
-                  width: '100px',            // horizontal length
-                  transform: 'rotate(-90deg)', // rotate into vertical
+                  width: '100px',
+                  transform: 'rotate(-90deg)',
                   transformOrigin: '50% 50%',
-                  margin: '0 0 12px',        // adjust spacing after rotation
+                  margin: '0 0 12px',
                 }}
               />
-              {/* Mute checkbox */}
-              <label style={{ display: 'flex', alignItems: 'center', gap: '4px', cursor: 'pointer', marginTop: '45px' }}>
+              <label style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '4px',
+                cursor: 'pointer',
+                marginTop: '45px'
+              }}>
                 <input
                   type="checkbox"
                   checked={muted}
@@ -350,9 +343,6 @@ const Taskbar: React.FC<TaskbarProps> = ({
             </div>
           </div>
         )}
-        {/* End of Volumn */}
-
-
       </div>
     </div>
   );

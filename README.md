@@ -1,74 +1,82 @@
-npm run build
+# mishOS
+A pixel-styled, web-based desktop interface — part portfolio, part experiment, fully custom.
+
+## What Is This?
+mishOS is a fake operating system built entirely in React. Instead of clicking through traditional sections of a portfolio website, you're dropped into a interactive desktop. You can launch apps, drag and resize windows, open my resume, and explore my projects — all inside a fully functioning, browser-based environment.
+
+This project started as a technical playground where I could practice component design, dynamic rendering, global state management, and UI aesthetics I grew up loving. Think Windows 95 meets modern React tooling. The goal was to make something weird, fun, and surprisingly functional.
+
+## Why I Made This
+I wanted to build a portfolio that reflected how I think: creatively! Early operating systems had charm (which I sincerly miss), colorful icons, pixel art and just enough jank to make interactions feel tactile. I wanted to recreate that vibe while showcasing my skills in React, TypeScript, and UI systems.
+
+I also needed a space to test out architecture patterns like context providers, dynamic rendering, stateful window management, and full modularization. I didn’t want to use any templates, and wanted too see how much I could build from the groud up. (turns out? a lot)
+
+## What’s Inside
+Everything here is handmade and componentized. Below are the files worth checking out if you want to see how things work under the hood:
+
+### `DesktopContext.tsx`
+Provides a global context with the `launchWindow()` function so that any app (or subcomponent) can open another app window. This lets the system mimic the behavior of real desktop environments. 
+
+### `Window.tsx`
+The core window shell. It’s a movable, optionally resizable window component that wraps each app. Handles dragging with mouse events, layering with z-index, and app state toggling like minimize/maximize. Windows Magic!! 
+
+### `ResumeApp.tsx`
+A full resume rendered inside a scrollable app window. Shows my academic background, work experience, and skills — but styled to fit right into the OS. Built using basic layout components, scroll containers, and responsive typography.
+
+### `ProjectGalleryApp.tsx`
+This one’s a bit of a beast. It showcases selected projects in a rotating carousel, with fullscreen image modals and per-project navigation. Each image supports captions, click-to-zoom, and smooth transitions. There's a lot of conditional rendering and indexed state management here.
+
+### `Experience.tsx`
+The most data-heavy component. It renders my entire job and teaching history using a sticky year-based side nav and a timeline-style scroll viewer. IntersectionObservers detect which year is currently in view and highlight it in the side panel. It also shows each experience with custom bullets, and visual identity.
+
+### `StartMenu.tsx`, `Taskbar.tsx`, and `AppRegistry.ts`
+The foundational UI for interacting with the OS. The Start Menu pulls from a registry of apps and launches them. The Taskbar tracks open apps and lets you minimize, close, or switch between windows. 
+
+### Styling
+I use inline styles for pixel precision and encapsulation. Fonts are retro (Millennium, Pixelout), and every UI element is tuned for clarity and playfulness. 
+
+## Is This Still a Work in Progress?
+Yes! While I'm taking a break for now to learn more about TypeScript and React best practices, this is definitely still under development. I'm especially excited to add nostalgic early Windows applications — like Microsoft Paint! :) That's high on my list of features to build next.
+
+Other ideas I’m playing with:
+- Movable desktop icons and a context menu
+- Fake control panel or file explorer
+- Minigames or easter eggs
+- Theme toggling (classic, vaporwave, high contrast)
+
+## Just Want to See the Site?
+Check out the live version here:
+** https://mish-portfolio.net/ **
+(no need to clone anything)
+
+## How to Run This Locally
+1. Clone the repo:
+```bash
+git clone https://github.com/mishwilso/mishwilso.github.io.git
+cd mishwilso.github.io
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Run the dev server:
+```bash
 npm start
-npm run deploy
+```
 
-# Getting Started with Create React App
+4. Open your browser to:
+```
+http://localhost:3000/
+```
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Inspired By
+- Windows 95, Mac OS 8, and classic Linux desktops
+- Creative portfolios and UIs
+- A little bit of nostalgia and a lot of curiosity :)
 
-## Available Scripts
+## Final Thoughts
+Thanks for stopping by. If you’re from the MLH Fellowship or just checking out the code — I hope this gave you a glimpse into how I think, what I build, and why I love building it. Feel free to explore the codebase, file issues, or reach out if you have thoughts!
 
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Have fun poking around. I hope it makes you smile :)

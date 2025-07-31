@@ -1,8 +1,8 @@
 import React from 'react';
 import Banner from '../components/general/Banner';
-import { initMarkerCircle } from '../components/general/CircleEffect';
+import { initMarkerCircle } from '../components/effects/CircleEffect';
 import { useEffect } from 'react';
-import { useDesktop } from '../components/Desktop/DesktopContext';
+import { useDesktop } from '../components/desktop/DesktopContext';
 
 
 const About: React.FC = () => {

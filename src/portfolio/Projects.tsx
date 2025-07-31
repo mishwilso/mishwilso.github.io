@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
-import { useDesktop } from '../components/Desktop/DesktopContext';
+import { useDesktop } from '../components/desktop/DesktopContext';
 
 
 

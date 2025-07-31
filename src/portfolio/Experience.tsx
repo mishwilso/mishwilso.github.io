@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import Banner from '../components/general/Banner';
-import { useDesktop } from '../components/Desktop/DesktopContext';
+import { useDesktop } from '../components/desktop/DesktopContext';
 
 
 
@@ -439,47 +439,6 @@ visitButton: {
   textDecoration: 'none',
   fontFamily: 'MillenniumBold',
 },
-
-// #timeline {
-	// 	width: 500px;
-	// 	height: 600px;
-	// 	overflow: hidden;
-	// 	margin: 40px auto;
-	// 	position: relative;
-	// 	background: url('http://www.csslab.cl/ejemplos/timelinr/latest/images/dot.gif') 3px top repeat-y;
-	// }
-	// 	#dates {
-	// 		width: 100px;
-	// 		height: 600px;
-	// 		overflow: hidden;
-	// 		float: left;
-	// 	}
-	// 		#dates li {
-	// 			list-style: none;
-	// 			width: 100px;
-	// 			height: 100px;
-	// 			line-height: 100px;
-	// 			font-size: 24px;
-	// 			padding-left: 10px;
-	// 			background: url('http://www.csslab.cl/ejemplos/timelinr/latest/images/biggerdot.png') left center no-repeat;
-	// 		}
-	// 			#dates a {
-	// 				line-height: 38px;
-	// 				padding-bottom: 10px;
-	// 			}
-	// 			#dates .selected {
-	// 		        font-size: 38px;
-	// 			}
-		// 		$(function(){
-		// 	$().timelinr({
-		// 		orientation: 	'vertical',
-		// 		issuesSpeed: 	300,
-		// 		datesSpeed: 	100,
-		// 		arrowKeys: 		'true',
-		// 		startAt:		3
-		// 	})
-		// });
-
 };
 
 export default Experience;

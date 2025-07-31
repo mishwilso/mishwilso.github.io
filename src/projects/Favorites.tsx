@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Banner from '../components/general/Banner';
 import ProjectBlock from '../components/general/ProjectBlock';
-import { useDesktop } from '../components/Desktop/DesktopContext';
+import { useDesktop } from '../components/desktop/DesktopContext';
 
 
 const projects = [

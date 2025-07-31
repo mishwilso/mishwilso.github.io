@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect } from 'react';
 import Link from '../components/general/Link';
-import { initMarkerCircle } from '../components/general/CircleEffect';
+import { initMarkerCircle } from '../components/effects/CircleEffect';
 import $ from 'jquery';
 
 
@@ -30,13 +30,6 @@ const Home: React.FC<HomeProps> = (props) => {
         <div className="site-page-content" style={styles.window}>
             <div style={styles.page}>
                 <div style={styles.contentWrapper}>
-                    {/* <img src="../art/star1.png" style={{ ...styles.asset, top: '10%', left: '5%' }} alt="star" />
-                    <img src="../art/swirl.png" style={{ ...styles.asset, top: '0%', right: '5%' }} alt="swirl" />
-                    <img src="../art/arrow.png" style={{ ...styles.asset, top: '60%', left: '8%' }} alt="arrow" />
-                    <img src="../art/handstar1.png" style={{ ...styles.asset, top: '30%', left: '40%' }} alt="handstar1" />
-                    <img src="../art/handstar2.png" style={{ ...styles.asset, top: '35%', right: '30%' }} alt="handstar2" />
-                    <img src="../art/handstar3.png" style={{ ...styles.asset, top: '45%', left: '50%' }} alt="handstar3" />
-                    <img src="../art/emphasis.png" style={{ ...styles.asset, top: '42%', left: '30%' }} alt="emphasis" /> */}
                     
                     <div style={styles.header}>
                         <h1 style={styles.firstname}>Mish</h1>

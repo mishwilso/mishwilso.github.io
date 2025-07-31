@@ -1,3 +1,6 @@
+// src/components/Desktop/DesktopIcon.tsx
+// renders one icon on the desktop. draggable. double-clickable. classic!!
+
 import '../../assets/css/base.css';
 import '../../assets/css/components.css';
 import '../../assets/css/layout.css';
@@ -15,28 +18,39 @@ interface DesktopIconProps {
   y: number;
 }
 
-const DesktopIcon: React.FC<DesktopIconProps> = ({ icon, label, launchId, x, y, onLaunch,  }) => {
+const DesktopIcon: React.FC<DesktopIconProps> = ({
+  icon,
+  label,
+  launchId,
+  x,
+  y,
+  onLaunch,
+}) => {
   const iconRef = useRef<HTMLDivElement>(null);
+
   const [position, setPosition] = useState({ x: x, y: y });
   const [dragging, setDragging] = useState(false);
   const offset = useRef({ x: 0, y: 0 });
 
-  //   React.useEffect(() => {
+  // someday: maybe persist icon position in localStorage :)
+  // React.useEffect(() => {
   //   const saved = localStorage.getItem(`desktop-icon-${label}`);
   //   if (saved) {
   //     setPosition(JSON.parse(saved));
   //   }
   // }, []);
-  
+
+  // when click starts, remember where you clicked
   const onMouseDown = (e: React.MouseEvent) => {
     setDragging(true);
     offset.current = {
       x: e.clientX - position.x,
       y: e.clientY - position.y,
     };
-    e.stopPropagation();
+    e.stopPropagation(); // otherwise stuff behind might get clicked too
   };
 
+  // drag logic — updates icon position as mouse moves
   const onMouseMove = (e: MouseEvent) => {
     if (!dragging) return;
     const newX = e.clientX - offset.current.x;
@@ -44,13 +58,14 @@ const DesktopIcon: React.FC<DesktopIconProps> = ({ icon, label, launchId, x, y, 
     setPosition({ x: newX, y: newY });
   };
 
-
+  // once mouse is up, stop dragging
   const onMouseUp = () => {
     setDragging(false);
+    // could save final position here? feels like overkill for now :|
     // localStorage.setItem(`desktop-icon-${label}`, JSON.stringify(position));
-
   };
 
+  // wire up drag events globally while dragging
   React.useEffect(() => {
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
@@ -64,7 +79,7 @@ const DesktopIcon: React.FC<DesktopIconProps> = ({ icon, label, launchId, x, y, 
     <div
       ref={iconRef}
       className="desktop-icon"
-      onDoubleClick={() => onLaunch(launchId)}
+      onDoubleClick={() => onLaunch(launchId)} // fire up the app!!
       onMouseDown={onMouseDown}
       style={{
         position: 'absolute',

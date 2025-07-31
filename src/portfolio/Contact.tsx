@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import Banner from '../components/general/Banner';
-import { useDesktop } from '../components/Desktop/DesktopContext';
+import { useDesktop } from '../components/desktop/DesktopContext';
 
 
 const Contact: React.FC = () => {

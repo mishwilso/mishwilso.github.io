@@ -1,7 +1,7 @@
 import React, { useState} from 'react';
 import Banner from '../components/general/Banner';
 import CatalogueCard from '../components/general/CatalogueCard';
-import { useDesktop } from '../components/Desktop/DesktopContext';
+import { useDesktop } from '../components/desktop/DesktopContext';
 
 const allProjects = [
   {

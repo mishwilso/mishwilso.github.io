@@ -1,10 +1,13 @@
+// ProjectBlock.tsx
+// displays a full project section with carousel, thumbs, and modal fullscreen image
+// used for the featured projects section. 
+
 import React, { useState, useEffect } from 'react';
 
 interface ProjectImage {
   src: string;
   caption?: string;
 }
-
 
 interface Project {
   name: string;
@@ -23,21 +26,24 @@ interface ProjectBlockProps {
 
 const ProjectBlock = ({ project, fullscreenImage, setFullscreenImage }: ProjectBlockProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
+  const [isPaused, setIsPaused] = useState(false); // stops auto-scroll on user input
 
+  // auto-rotate images unless user touches something
   useEffect(() => {
     if (isPaused) return;
     const interval = setInterval(() => {
       setCurrentImageIndex((prev) => (prev + 1) % project.images.length);
-    }, 8000);
+    }, 8000); // 8 seconds because why not
     return () => clearInterval(interval);
   }, [isPaused, project.images.length]);
 
+  // move to prev image + pause slideshow
   const goLeft = () => {
     setIsPaused(true);
     setCurrentImageIndex((prev) => (prev - 1 + project.images.length) % project.images.length);
   };
 
+  // move to next image + pause slideshow
   const goRight = () => {
     setIsPaused(true);
     setCurrentImageIndex((prev) => (prev + 1) % project.images.length);
@@ -48,40 +54,41 @@ const ProjectBlock = ({ project, fullscreenImage, setFullscreenImage }: ProjectB
       <h2 style={styles.projectTitle}>{project.name}</h2>
       <p style={styles.description}>{project.description}</p>
 
+      {/* main image + caption + arrows */}
       <div style={styles.featuredImageWrapper}>
         <img
-            src={project.images[currentImageIndex].src}
-            alt={`${project.name} Screenshot`}
-            style={styles.featuredImage}
-            onClick={() => setFullscreenImage(project.images[currentImageIndex].src)}
+          src={project.images[currentImageIndex].src}
+          alt={`${project.name} Screenshot`}
+          style={styles.featuredImage}
+          onClick={() => setFullscreenImage(project.images[currentImageIndex].src)}
         />
         {project.images[currentImageIndex].caption && (
-            <div style={styles.imageCaption}>
+          <div style={styles.imageCaption}>
             <em>{project.images[currentImageIndex].caption}</em>
-            </div>
+          </div>
         )}
         <button onClick={goLeft} style={{ ...styles.arrowButton, left: 0 }}>←</button>
         <button onClick={goRight} style={{ ...styles.arrowButton, right: 0 }}>→</button>
-    </div>
-    <div></div>
+      </div>
 
+      {/* thumbnails are clickable because this is the future */}
       <div style={styles.thumbnailRow}>
         {project.images.map((img, index) => (
-        <img
+          <img
             key={index}
             src={img.src}
             onClick={() => setCurrentImageIndex(index)}
             style={{
-            ...styles.thumbnailImage,
-            border:
-                currentImageIndex === index ? '2px solid #0077cc' : '2px solid transparent',
+              ...styles.thumbnailImage,
+              border: currentImageIndex === index ? '2px solid #0077cc' : '2px solid transparent',
             }}
-        />
+          />
         ))}
       </div>
 
       <p style={styles.description}>{project.sub_description}</p>
 
+      {/* links to GitHub and project route */}
       <div style={styles.linkRow}>
         <a href={project.github} target="_blank" rel="noreferrer" style={styles.link}>
           GitHub
@@ -91,6 +98,7 @@ const ProjectBlock = ({ project, fullscreenImage, setFullscreenImage }: ProjectB
         </a>
       </div>
 
+      {/* fullscreen image viewer (modal style) */}
       {fullscreenImage && (
         <div style={styles.modalOverlay}>
           <div style={styles.modalContent}>

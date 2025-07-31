@@ -1,3 +1,7 @@
+// CatalogueCard.tsx
+// renders one card in the list. toggles expanded state. either a thumbnail or full gallery.
+// is this efficient? unclear. does it work? yes. so we ship :)
+
 import React, { useEffect, useRef } from 'react';
 import ExpandedCardCarousel from './ExpandedCardCarousel';
 import { FaGithub } from 'react-icons/fa';
@@ -38,8 +42,9 @@ const CatalogueCard: React.FC<Props> = ({
 }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const gallery = project.gallery || [];
-  const activeImg = gallery[galleryIndex % gallery.length];
+  const activeImg = gallery[galleryIndex % gallery.length]; // keeps looping because why not
 
+  // scroll to center when opened. because user experience.
   useEffect(() => {
     if (isExpanded && cardRef.current) {
       cardRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -56,20 +61,20 @@ const CatalogueCard: React.FC<Props> = ({
       }}
     >
 
-      {/* Image or Gallery */}
+      {/* main visual: either a static icon or full fancy slideshow */}
       <div style={styles.galleryWrapper}>
         {isExpanded ? (
-            <ExpandedCardCarousel
+          <ExpandedCardCarousel
             images={project.gallery}
             isActive={isExpanded}
             setFullscreenImage={setFullscreenImage}
-            />
+          />
         ) : (
-            <img src={project.icon} style={styles.icon} alt={project.name} />
+          <img src={project.icon} style={styles.icon} alt={project.name} />
         )}
-        </div>
+      </div>
 
-      {/* Tags */}
+      {/* floating blobs of tech identity */}
       <div style={styles.row2}>
         {project.tags.map((tag) => (
           <span
@@ -84,12 +89,11 @@ const CatalogueCard: React.FC<Props> = ({
         ))}
       </div>
 
-        
-      {/* Title + Desc */}
+      {/* name + one-liner */}
       <div style={styles.row1}>{project.name}</div>
       <div style={styles.row3}>{project.description}</div>
 
-      {/* Details + Carousel */}
+      {/* detail dump, but only if expanded. otherwise we're mysterious. */}
       {isExpanded && (
         <div style={{ width: '100%' }}>
           <ul style={styles.detailsList}>
@@ -100,11 +104,10 @@ const CatalogueCard: React.FC<Props> = ({
         </div>
       )}
 
-      {/* Footer */}
+      {/* footer: date stamp + buttons + maybe GitHub if you were feeling generous */}
       <div style={styles.row4}>
         <span style={styles.date}>{project.date}</span>
-        {/* 🔗 GitHub Top Right Icon */}
-        
+
         {project.github && (
           <a
             href={project.github}
@@ -125,7 +128,7 @@ const CatalogueCard: React.FC<Props> = ({
             <FaGithub />
           </a>
         )}
-        
+
         <button
           style={styles.readMore}
           onClick={() => onToggleExpand(project.id)}

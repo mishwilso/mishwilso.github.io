@@ -1,5 +1,5 @@
 import React from 'react';
-import type { WindowProps } from '../components/Desktop/Window98';
+import type { WindowProps } from '../components/desktop/Window98';
 
 type ResumeProps = Pick<WindowProps, 'onClose' | 'onMinimize' | 'onClick'>;
 
