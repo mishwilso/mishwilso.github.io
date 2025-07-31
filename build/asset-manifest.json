@@ -1,22 +1,23 @@
 {
   "files": {
-    "main.css": "/static/css/main.2b226fc0.css",
-    "main.js": "/static/js/main.fa218b13.js",
-    "static/js/453.cba40d9d.chunk.js": "/static/js/453.cba40d9d.chunk.js",
+    "main.css": "/static/css/main.c6d5350c.css",
+    "main.js": "/static/js/main.2e64f734.js",
+    "static/js/453.5419cae8.chunk.js": "/static/js/453.5419cae8.chunk.js",
     "static/media/MSSansSerif.ttf": "/static/media/MSSansSerif.aa14e7b110864a3c2e08.ttf",
     "static/media/Pixelout.ttf": "/static/media/Pixelout.34b1926ab014fe978b0b.ttf",
+    "static/media/desktop-wallpaper.png": "/static/media/desktop-wallpaper.8dbe4fea163ba8ef7f26.png",
     "static/media/Terminal.ttf": "/static/media/Terminal.6a1b7290048681921b2c.ttf",
     "static/media/Millennium.ttf": "/static/media/Millennium.e16d74a8e8e0567ce30e.ttf",
     "static/media/Millennium-Bold.ttf": "/static/media/Millennium-Bold.cd5e3be832ebd008c852.ttf",
     "static/media/ms_sans_serif.woff2": "/static/media/ms_sans_serif.0348082abb503fb6a8c2.woff2",
     "static/media/ms_sans_serif_bold.woff2": "/static/media/ms_sans_serif_bold.7fcf57cc6e87ecddbf64.woff2",
     "index.html": "/index.html",
-    "main.2b226fc0.css.map": "/static/css/main.2b226fc0.css.map",
-    "main.fa218b13.js.map": "/static/js/main.fa218b13.js.map",
-    "453.cba40d9d.chunk.js.map": "/static/js/453.cba40d9d.chunk.js.map"
+    "main.c6d5350c.css.map": "/static/css/main.c6d5350c.css.map",
+    "main.2e64f734.js.map": "/static/js/main.2e64f734.js.map",
+    "453.5419cae8.chunk.js.map": "/static/js/453.5419cae8.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.2b226fc0.css",
-    "static/js/main.fa218b13.js"
+    "static/css/main.c6d5350c.css",
+    "static/js/main.2e64f734.js"
   ]
 }

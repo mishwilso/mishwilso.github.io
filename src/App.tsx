@@ -1,10 +1,6 @@
 import { useState } from 'react';
 import InitialSetup from './InitialSetup';
-import NoiseOverlay from './NoiseOverlay';
-import { Canvas } from '@react-three/fiber';
-import React, { useEffect } from 'react';
 import $ from 'jquery';
-
 
 import Desktop98 from './components/Desktop/Desktop98';
 

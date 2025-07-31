@@ -18,6 +18,7 @@ const allProjects = [
       "Provided practical guidance for algorithm selection based on application needs."
     ],
     gallery: ['projects/dpquantile1.jpeg', 'projects/dpquantile2.jpeg', 'projects/dpquantile3.jpeg'],
+    github: 'https://github.com/uvm-plaid/quantiles_benchmark',
   },
   {
     id: 2,
@@ -28,9 +29,9 @@ const allProjects = [
     icon: 'projects/chess1.jpeg',
     type: 'Game',
     details: [
-      "Built a playable chess game with AI opponent using minimax and object-oriented design.",
-      "Handled user interaction logic, move legality checks, and game state transitions.",
-      "Implemented clean and modular architecture for future expansion."
+      "Created a chess game with AI-driven decision-making using the minimax algorithm, enhancing game play complexity",
+      "Designed a scalable and maintainable code base using object-oriented principles, optimizing long-term development and feature expansion",
+      "Led an agile team, utilizing Git for version control and iterative development to ensure seamless integration and rapid deployment."
     ],
     gallery: ['projects/chess1.jpeg', 'projects/chess2.jpeg', 'projects/chess3.jpeg',],
     github: 'https://github.com/mishwilso/Chess-Game',
@@ -140,7 +141,7 @@ const allProjects = [
     icon: 'projects/food1.png',
     type: 'ML',
     details: [
-      "Built a PyTorch model to classify audio samples of food being eaten.",
+      "Developed a machine learning model for food audio classification to complement a visual recognition system",
       "Engineered features like MFCCs and wavelet transforms to improve accuracy.",
       "Achieved 80%+ accuracy and explored UI integration for food ID assistance."
     ],
@@ -187,7 +188,7 @@ const allProjects = [
     icon: 'projects/robo4.png',
     type: 'Research',
     details: [
-      "Simulated a bipedal robot performing jumps using PyBullet and Pyrosim.",
+      "Designed and simulated a bipedal robot capable of jumping from one elevated platform to another using PyBullet and Pyrosim",
       "Used ray sensors, spring physics, and neural nets to train jumping behaviors.",
       "Compared A/B fitness functions like airtime vs. horizontal distance."
     ],
