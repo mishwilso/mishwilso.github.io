@@ -12,7 +12,7 @@ export const APPLICATIONS: Record<string, AppDefinition> = {
   portfolio: {
     key: 'portfolio',
     name: 'Portfolio',
-    shortcutIcon: '/img/desktop/MyComputer.png',
+    shortcutIcon: '/images/desktop/MyComputer.png',
     component: PortfolioExplorer,
     widthRatio: 0.55,
     heightRatio: 0.85,
@@ -21,7 +21,7 @@ export const APPLICATIONS: Record<string, AppDefinition> = {
   credit: {
     key: 'credit',
     name: 'Credit',
-    shortcutIcon: '/img/desktop/BatchFile.png',
+    shortcutIcon: '/images/desktop/BatchFile.png',
     component: Credit,
     widthRatio: 0.39,
     heightRatio: 0.6,
@@ -30,7 +30,7 @@ export const APPLICATIONS: Record<string, AppDefinition> = {
   resume: {
     key: 'resume',
     name: 'Resume',
-    shortcutIcon: '/img/desktop/TextFile.png',
+    shortcutIcon: '/images/desktop/TextFile.png',
     component: Resume,
     widthRatio: 0.3,
     heightRatio: 0.4,
@@ -39,7 +39,7 @@ export const APPLICATIONS: Record<string, AppDefinition> = {
   ie: {
     key: 'ie',
     name: 'Internet Explorer',
-    shortcutIcon: '/img/taskbar/IESmall.png',
+    shortcutIcon: '/images/taskbar/IESmall.png',
     component: InternetExplorerContent,
     widthRatio: 0.7,
     heightRatio: 0.7,
@@ -48,7 +48,7 @@ export const APPLICATIONS: Record<string, AppDefinition> = {
   email: {
     key: 'email',
     name: 'Mail',
-    shortcutIcon: '/img/taskbar/OutlookExpress.png',
+    shortcutIcon: '/images/taskbar/OutlookExpress.png',
     component: EmailClientContent,
     widthRatio: 0.6,
     heightRatio: 0.6,

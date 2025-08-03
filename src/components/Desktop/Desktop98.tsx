@@ -151,7 +151,7 @@ const Desktop98: React.FC = () => {
               launchId={key}
               onLaunch={launchWindow}
               x={32}
-              y={32 + index * 150}
+              y={32 + index * 100}
             />
           ))}
         </div>

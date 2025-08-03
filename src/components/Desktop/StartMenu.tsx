@@ -53,7 +53,7 @@ const StartMenu: React.FC<StartMenuProps> = ({ onLaunch, onShutdown }) => {
         <div className="start-menu__item has-submenu">
           <img
             className="start-menu__icon"
-            src="/img/startmenu/Programs.png"
+            src="/images/startmenu/Programs.png"
             alt="Programs"
           />
           <span className="start-menu__item-text">Programs</span>
@@ -74,7 +74,7 @@ const StartMenu: React.FC<StartMenuProps> = ({ onLaunch, onShutdown }) => {
         <div className="start-menu__item" onClick={() => onLaunch('resume')}>
           <img
             className="start-menu__icon"
-            src="/img/desktop/TextFile.png"
+            src="/images/desktop/TextFile.png"
             alt="Resume"
           />
           <span className="start-menu__item-text">Resume</span>
@@ -90,7 +90,7 @@ const StartMenu: React.FC<StartMenuProps> = ({ onLaunch, onShutdown }) => {
         <div className="start-menu__item" onClick={onShutdown}>
           <img
             className="start-menu__icon"
-            src="/img/startmenu/Shutdown.png"
+            src="/images/startmenu/Shutdown.png"
             alt="Shut Down"
           />
           <span className="start-menu__item-text">Shut Down…</span>

@@ -33,7 +33,7 @@ img.icon, .start-menu__icon, .menu-bar__btn > img {
 
 /* Desktop icon block */
 .desktop-icon {
-    width: 4vw;
+    width: 3.5vw;
     height: 8vh;
     margin: 0.5vw;
 }

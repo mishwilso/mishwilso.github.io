@@ -122,28 +122,28 @@ const Taskbar: React.FC<TaskbarProps> = ({
     <div className="task-bar">
       {/* start button! */}
       <button id="start-btn" onClick={onStartClick}>
-        <img src="/img/taskbar/Start.png" alt="Start" width="100%" height="100%" />
+        <img src="/images/taskbar/Start.png" alt="Start" width="100%" height="100%" />
       </button>
 
       <div className="task-bar__divider" />
 
       {/* quick launch section */}
       <img
-        src="/img/taskbar/ShowDesktop.png"
+        src="/images/taskbar/ShowDesktop.png"
         alt="Show Desktop"
         title="Show Desktop"
         className="task-bar__quick"
         onClick={onShowDesktop}
       />
       <img
-        src="/img/taskbar/IESmall.png"
+        src="/images/taskbar/IESmall.png"
         alt="Internet Explorer"
         title="Launch IE"
         className="task-bar__quick"
         onClick={() => onLaunch('ie')}
       />
       <img
-        src="/img/taskbar/OutlookExpress.png"
+        src="/images/taskbar/OutlookExpress.png"
         alt="Outlook"
         title="Launch Outlook"
         className="task-bar__quick"
@@ -172,14 +172,14 @@ const Taskbar: React.FC<TaskbarProps> = ({
       {/* system tray, calendar, time, volume */}
       <div className="task-bar__tray">
         <img
-          src="/img/taskbar/TaskScheduler.png"
+          src="/images/taskbar/TaskScheduler.png"
           alt="Calendar"
           title="Calendar"
           className="task-bar__tray__icon"
           onClick={() => setShowCalendar((v) => !v)}
         />
         <img
-          src="/img/taskbar/Volume.png"
+          src="/images/taskbar/Volume.png"
           alt="Volume"
           title="Volume"
           className="task-bar__tray__icon"
@@ -213,7 +213,7 @@ const Taskbar: React.FC<TaskbarProps> = ({
               alignItems: 'center',
               gap: '4px',
             }}>
-              <img src="/img/taskbar/TaskScheduler.png" alt="Date" width={16} height={16} />
+              <img src="/images/taskbar/TaskScheduler.png" alt="Date" width={16} height={16} />
               <span style={{ fontSize: '14px' }}>Date</span>
             </div>
 
